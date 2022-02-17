@@ -1,0 +1,126 @@
+.modal-client {
+    &__wrapper {
+        border-radius: 12px;
+        position: absolute;
+        top: calc(50% - 200px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        &_second {
+            position: relative;
+        }
+    }
+    &__wrapper-zoom-photo {
+        width: auto;
+        position: absolute;
+        top: calc(50% - 200px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    &__thanks {
+        height: auto;
+    }
+    &__box {
+        position: relative;
+        border-radius: 12px;
+    }
+    &__info {
+        width: 461px;
+        padding: 22px 30px 29px 30px;
+        background: #fff;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__img {
+        height: 100%;
+    }
+    &__details-zoom-photo {
+        max-width: 85vw;
+        display: block;
+        margin: 0 auto;
+        height: 85vh;
+        // object-fit: cover;
+    }
+}
+
+.modal-exchange {
+    &__wrapper {
+        position: absolute;
+        top: calc(50% - 200px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    &__title {
+        display: block;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 140%;
+        text-align: center;
+    }
+    &__desc {
+        margin-top: 20px;
+        display: block;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 140%;
+        text-align: center;
+    }
+    &__btn {
+        margin-top: 19px;
+        padding: 0px 54px;
+        width: auto;
+    }
+}
+
+.modal-client-ovh-y {
+	overflow-y: auto;
+}
+
+@media(max-width: 991px) {
+	.modal-client {
+		&__details-zoom-photo {
+			width: calc(100vw - 32px);
+			height: auto;
+		}
+	}
+}
+
+@media(max-width: 767px) {
+    .modal-client {
+        &__info {
+            width: 80vw;
+        }
+    }
+    .modal-exchange {
+        &__btn {
+            margin-top: 19px;
+            padding: 0px;
+            width: 100%;
+        }
+    }
+}
+
+@media(max-width: 575px) {
+    .modal-client {
+        &__wrapper {
+            height: auto;
+            max-height: 90vh;
+            width: calc(100vw - 32px);
+        }
+		&__info {
+			width: calc(100vw - 32px);
+		}
+        &__thanks {
+            &__message {
+                font-size: 12px;
+            }
+        }
+    }
+    .modal-exchange {
+        &__btn {
+            font-size: 16px;
+        }
+    }
+}

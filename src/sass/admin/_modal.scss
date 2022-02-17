@@ -1,0 +1,128 @@
+.modal-admin {
+    &__background {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: calc(100vh + 400px);
+        background-color: rgba(0,0,0, 0.7);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        z-index: 6;
+    }
+    &__wrapper {
+        background-color: #fff;
+        border-radius: 5px;
+        position: absolute;
+        width: 600px;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        &_second {
+            position: relative;
+        }
+    }
+    &__box {
+        position: relative;
+        padding: 20px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 350px;
+        max-height: 80vh;
+        &::-webkit-scrollbar {
+            width: 10px;
+            border-left: 1px solid grey;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgba(256, 256, 256, 0);
+        }
+        &::-webkit-scrollbar-thumb {
+            background: grey;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            &:hover {
+                background: #D25FD2;
+            }
+        }
+    }
+    &__close {
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        cursor: pointer;
+    }
+    &__close-zoom-photo {
+        position: absolute;
+        top: -30px;
+        right: 0px;
+        cursor: pointer;
+    }
+    &__title {
+        display: block;
+        margin: 0 auto;
+        font-size: 22px;
+        font-weight: 600;
+        text-align: center;
+    }
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__item {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    &__item-photo {
+        margin-top: 30px;
+        width: 80%;
+        position: relative;
+        img {
+            width: 100%;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            background: #000;
+            width: 100%;
+            height: 1px;
+            bottom: -5px;
+            left: 0px;
+        }
+    }
+    &__textarea {
+        padding: 5px;
+        resize: none;
+        z-index: 3;
+        min-height: 50px;
+        width: 400px;
+        font-size: 20px;
+        line-height: 24px;
+    }
+    &__radio {
+        z-index: 3;
+        font-size: 18px;
+    }
+    &__radio-box {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__label {
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+    }
+    &__btn {
+        margin-top: 20px;
+    }
+}
+
+@media(max-width: 575px) {
+    .modal-admin {
+        &__close {
+            top: 5px;
+            right: 5px;
+        }
+    }
+}

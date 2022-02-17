@@ -1,0 +1,14 @@
+.phone-admin {
+    &__item {
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        &:first-child {
+            margin-top: 0px;
+        }
+    }
+    &__btn-box {
+        display: flex;
+        margin-top: 5px;
+    }
+}

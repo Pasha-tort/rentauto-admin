@@ -1,0 +1,45 @@
+<section class="container advantage" id="about">
+
+    <div class="scroll__horizontal_fixed scroll-box">
+        <div class="scroll__overflow_horizontal">
+            <ul class="scroll__horizontal-box">
+                <li class="scroll__horizontal-item scroll-item"><img src="/img/scrollSlider/1.webp" class="scroll__img" alt="advantage_1"></li>
+                <li class="scroll__horizontal-item scroll-item"><img src="/img/scrollSlider/2.webp" class="scroll__img" alt="advantage_2"></li>
+                <li class="scroll__horizontal-item scroll-item"><img src="/img/scrollSlider/3.webp" class="scroll__img" alt="advantage_3"></li>
+                <li class="scroll__horizontal-item scroll-item"><img src="/img/scrollSlider/4.webp" class="scroll__img" alt="advantage_4"></li>
+                <li class="scroll__horizontal-item scroll-item"><img src="/img/scrollSlider/5.webp" class="scroll__img" alt="advantage_5"></li>
+                <li class="scroll__horizontal-item scroll-item"><img src="/img/scrollSlider/6.webp" class="scroll__img" alt="advantage_6"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="scroll__vertical scroll-box">
+        <ul class="scroll__vertical-box">
+
+            <li class="scroll__vertical-item scroll-item">
+                <h3 class="title advantage__title">{{advantageFirst.titleMain}}</h3>
+                <div class="advantage__info">
+                    <img class="advantage__icon" src="{{advantageFirst.urlImg}}" alt="advantage_icon">
+                    <h4 class="advantage__item-title">{{advantageFirst.title}}</h4>
+                    <div class="advantage__desc">{{advantageFirst.field}}</div>
+                    {{#if isAuth}}
+                        <button id="{{advantageFirst._id}}" class="btn-admin advantages__btn_admin_edit">Редактировать текст</button>
+                    {{/if}}
+                </div>
+            </li>
+
+            {{#each advantages}}
+                <li class="scroll__vertical-item scroll-item">
+                    <div class="advantage__info">
+                        <img class="advantage__icon" src="{{urlImg}}" alt="advantage_icon">
+                        <h4 class="advantage__item-title">{{title}}</h4>
+                        <div class="advantage__desc">{{field}}</div>
+                        {{#if @root.isAuth}}
+                            <button id="{{_id}}" class="btn-admin advantages__btn_admin_edit">Редактировать текст</button>
+                        {{/if}}
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>

@@ -1,0 +1,48 @@
+<section class="catalogHome" id="catalogHome">
+    <div class="container">
+        
+        <h3 class="title catalogHome__main-title">Каталог аренды</h3>
+        
+        <menu>
+            <li class="catalogHome__item">
+                <div class="catalogHome__info">
+                    <div class="catalogHome__title">{{catalogHome1.title}}</div>
+                    <div class="catalogHome__desc">{{catalogHome1.field}}</div>
+                    <a href="/catalog/personal/" class="btn catalogHome__btn">Перейти в каталог</a>
+                    {{#if isAuth}}
+                        <button id="{{catalogHome1._id}}" class="btn-admin catalogHome__btn_admin_edit">Редактировать</button>
+                    {{/if}}
+                </div>
+                <div class="catalogHome__img-box">
+                    <img class="catalogHome__img" src="/img/catalogPersonalAuto.webp" alt="каталог личного транспорта">
+                </div>
+            </li>
+            <li class="catalogHome__item">
+                <div class="catalogHome__img-box">
+                    <img class="catalogHome__img" src="/img/catalogCommercialAuto.webp" alt="каталог комерческого транспорта">
+                </div>
+                <div class="catalogHome__info">
+                    <div class="catalogHome__title">{{catalogHome2.title}}</div>
+                    <div class="catalogHome__desc">{{catalogHome2.field}}</div>
+                    <a href="/catalog/commercial/" class="btn catalogHome__btn">Перейти в каталог</a>
+                    {{#if isAuth}}
+                        <button id="{{catalogHome2._id}}" class="btn-admin catalogHome__btn_admin_edit">Редактировать</button>
+                    {{/if}}
+                </div>
+            </li>
+            <li class="catalogHome__item">
+                <div class="catalogHome__info">
+                    <div class="catalogHome__title">{{catalogHome3.title}}</div>
+                    <div class="catalogHome__desc">{{catalogHome3.field}}</div>
+                    <a href="/catalog/special/" class="btn catalogHome__btn">Перейти в каталог</a>
+                    {{#if isAuth}}
+                        <button id="{{catalogHome3._id}}" class="btn-admin catalogHome__btn_admin_edit">Редактировать</button>
+                    {{/if}}
+                </div>
+                <div class="catalogHome__img-box">
+                    <img class="catalogHome__img" src="/img/catalogSpecialAuto.webp" alt="каталог специального транспорта">
+                </div>
+            </li>
+        </menu>
+    </div>
+</section>

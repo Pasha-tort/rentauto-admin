@@ -1,0 +1,15 @@
+.context-menu {
+	&__wrapper {
+		display: none;
+		&_active {
+			display: block;
+		}
+	}
+	&__list {
+		display: block;
+
+	}
+	&__item {
+		display: block;
+	}
+}

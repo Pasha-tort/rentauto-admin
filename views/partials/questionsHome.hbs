@@ -1,0 +1,79 @@
+<section class="questions" id="rent">
+    <div class="container">
+        <h3 class="title questions__main-title">Об аренде с выкупом</h3>
+        <div class="questions__box">
+            
+            <menu class="questions__box_left">
+
+                {{#if firstBoxQuestions.length}}
+                    {{#each firstBoxQuestions}}
+                        <li class="questions__item">
+                            <div class="questions__item__box">
+
+                                
+                                <span class="questions__text">
+                                    {{title}}
+                                </span>
+                                
+                                {{#if @root.isAuth}}
+                                    <button id="{{_id}}" class="btn-admin questions__btn_admin_edit">Редактировать вопрос</button>
+                                    <button id="{{_id}}" class="btn-admin questions__btn_admin_delete">Удалить вопрос</button>
+                                {{/if}}
+
+                                <div class="questions__plus">
+                                    <div></div><div></div>
+                                </div>
+
+                            </div>
+
+                            <span class="questions__answer">
+                                {{answer}}
+                            </span>
+                            <div class="questions__line"></div>
+                        </li>
+                    {{/each}}
+
+                {{else}}
+                <p>Вопросов пока нет</p>
+                {{/if}}
+            </menu>
+
+
+            <menu class="questions__box_right">
+
+                {{#if secondBoxQuestions.length}}
+                    {{#each secondBoxQuestions}}
+                        <li class="questions__item">
+                            <div class="questions__item__box">
+                                <span class="questions__text">
+                                    {{title}}
+                                </span>
+
+                                 {{#if @root.isAuth}}   
+                                    <button id="{{_id}}" class="btn-admin questions__btn_admin_edit">Редактировать вопрос</button>
+                                    <button id="{{_id}}" class="btn-admin questions__btn_admin_delete">Удалить вопрос</button>
+                                {{/if}}
+                                    
+                                
+                                <div class="questions__plus">
+                                    <div></div><div></div>
+                                </div>
+                            </div>
+
+                            <span class="questions__answer">
+                                {{answer}}
+                            </span>
+                            <div class="questions__line"></div>
+                        </li>
+                    {{/each}}
+
+                {{else}}
+                <p>Вопросов пока нет</p>
+                {{/if}}
+            </menu>
+        </div>
+        {{#if isAuth}}
+            <button class="btn-admin questions__btn_admin_add">Добавить вопрос</button>
+        {{/if}}
+    </div>
+</section>

@@ -1,0 +1,35 @@
+<footer class="footer">
+
+   <div class="container">
+
+        <div class="footer__wrapper">
+            <div class="footer__box">
+                
+                <a href="/"><img src="/icons/logoWhite.svg" class="footer__logo" alt="logo"/></a>
+
+                <address class="footer__contacts">
+
+                    <a class="footer__address">г. Москва</a>
+                    <a class="footer__email" href="mailto:komm@rentauto-motion.ru">mail@rentauto-motion.ru</a>
+                    {{#each phones}}
+                        <a href="tel:{{phone}}" class="footer__tel">{{phoneUI}}</a> 
+                    {{/each}}
+
+                    <div class="footer__social">
+                        <a><img class="footer__social__item" src="/icons/social/telegramm.svg" alt="telegramm"></a>
+                        <a><img class="footer__social__item" src="/icons/social/instagramm.svg" alt="instagramm"></a>
+                        <a><img class="footer__social__item" src="/icons/social/vk.svg" alt="vk"></a>
+                    </div>
+
+                </address>
+            </div>
+        </div>
+
+       <div class="footer__line"></div>
+
+       <div class="footer__label">© RentAuto-Motion</div>
+   </div>
+
+   
+
+</footer>

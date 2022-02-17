@@ -1,0 +1,136 @@
+.footer {
+    margin-top: 150px;
+    padding-bottom: 20px;
+    background-color: #282828;
+    &__box {
+        padding-top: 20px;
+    }
+    &__logo {
+        display: block;
+        cursor: pointer;
+    }
+    &__contacts {
+        margin-top: 44px;
+        display: flex;
+        flex-direction: column;
+		align-items: flex-start;
+        color: #D6D6D6;
+        font-weight: 400;
+        font-size: 18px;
+        font-style: normal;
+    }
+    &__social {
+        display: flex;
+        margin-top: 37px;
+        align-items: center;
+        a {
+            margin-left: 17px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            &:nth-child(1) {
+                margin-left: 5px;
+            }
+        }
+        
+    }
+    &__address {
+        cursor: pointer;
+        text-decoration: none;
+        color: #D6D6D6;
+        transition: 0.2s all;
+        &:hover {
+            color: #FF4040;
+            transition: 0.2s all;
+        }
+    }
+    &__email {
+        margin-top: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #D6D6D6;
+        transition: 0.2s all;
+        &:hover {
+            color: #FF4040;
+            transition: 0.2s all;
+        }
+    }
+    &__tel {
+        margin-top: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #D6D6D6;
+        transition: 0.2s all;
+        &:hover {
+            color: #FF4040;
+            transition: 0.2s all;
+        }
+    }
+    &__line {
+        background-color: #D6D6D6;
+        height: 1px;
+        width: 100%;
+        margin-top: 31px;
+    }
+    &__label {
+        margin-top: 20px;
+        font-weight: 400;
+        font-size: 18px;
+        color: #fff;
+    }
+}
+
+@media(max-width: 991px) {
+    .footer {
+        margin-top: 80px;
+        &__address {
+            &:hover {
+                color: #D6D6D6;
+            }
+            &:active {
+                color: #FF4040;
+                transition: 0.2s all;
+            }
+        }
+        &__email {
+            &:hover {
+                color: #d6d6d6;
+            }
+            &:active {
+                color: #FF4040;
+                transition: 0.2s all;
+            }
+        }
+        &__tel {
+            &:hover {
+                color: #D6D6D6;
+            }
+            &:active {
+                color: #FF4040;
+                transition: 0.2s all;
+            }
+        }
+    }
+    
+}
+
+@media(max-width: 575px) {
+    .footer {
+        &__logo {
+            display: block;
+            margin: 0 auto;
+        }
+        &__contacts {
+            font-size: 14px;
+        }
+        &__label {
+            font-size: 14px;
+        }
+        &__social {
+            margin-top: 20px;
+        }
+        &__line {
+            margin-top: 20px;
+        }
+    }
+}

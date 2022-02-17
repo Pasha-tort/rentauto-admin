@@ -1,0 +1,13 @@
+<div class="auth__wrapper">
+    {{#if error}}
+        <span class="error-alert">{{error}}</span>
+    {{/if}}
+    <form class="auth__form" action="/auth/login" method="POST">
+        <label for="login">Логин:</label>
+        <input name="login" type="text" required/>
+        <label for="password">Пароль:</label>
+        <input name="password" type="password"/>
+        <button class="btn auth__btn">Войти</button>
+    </form>
+    <a class="auth__home" href="/">Вернуться на главную</a>
+</div>

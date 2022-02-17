@@ -1,0 +1,68 @@
+.exchange-auto {
+    padding: 23px 30px 24px 30px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    &__background {
+        display: block;
+        margin-top: 50px;
+        padding-top: 50px;
+        background: url('/img/exchangeBackground.webp') no-repeat center center/cover;
+        height: 580px;
+    }
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__desc {
+        width: 845px;
+        font-weight: 400;
+        font-size: 18px;
+    }
+}
+
+@media(max-width: 1400px) {
+    .exchange-auto {
+        &__desc {
+            width: 660px;
+        }
+    }
+}
+
+@media(max-width: 991px) {
+    .exchange-auto {
+        &__desc {
+            width: 460px;
+        }
+        &__btn {
+            width: 170px;
+            height: 50px;
+        }
+    }
+}
+
+@media(max-width: 767px) {
+    .exchange-auto {
+        &__info {
+            flex-direction: column;
+        }
+        &__btn {
+            margin-top: 20px;
+            width: 100%;
+            height: 55px;
+        }
+        &__desc {
+            width: auto;
+            font-size: 14px;
+        }
+    }
+}
+
+@media(max-width: 575px) {
+    .exchange-auto {
+        &__background {
+            padding-top: 15px;
+        }
+    }
+}

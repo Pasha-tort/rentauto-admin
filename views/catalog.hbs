@@ -1,0 +1,85 @@
+<section class="catalog">
+    <div class="container">
+        <h3 class="catalog__title">Каталог</h3>
+        {{#if isAuth}}
+            <button class="btn-admin catalog-admin__add-specification">Добавить характеристику</button>
+            <button class="btn-admin catalog-admin__edit-specification">Редактировать характеристики</button>
+            <button class="btn-admin catalog-admin__add-machine">Добавить машину</button>
+            <button class="btn-admin catalog-admin__btn_edit-title" id="{{catalogTitle._id}}">Редактировать заголовок каталога</button>
+        {{/if}}
+        {{#if errorSpecificationType}}
+            <span class="error-alert">{{errorSpecificationType}}</span>
+        {{/if}}
+        <menu class="catalog__list">
+            {{#each machines}}
+                <li class="catalog__item">
+                    <img class="catalog__item__img" src="{{avatar}}" alt="Фото машины">
+
+                    <div class="catalog__item__info">
+
+                        <div class="catalog__item__info__header">
+                            <h4 class="catalog__item__title">{{nameMachine}}</h4>
+                            {{#if availability}}
+                                <span class="catalog__item__availability">В наличии</span>
+                            {{else}}
+                                <span class="catalog__item__availability catalog__item__availability_grey">Под заказ</span>
+                            {{/if}}
+                        </div>
+
+                        <span class="catalog__item__price">{{price}} ₽</span>
+                        <a href="{{_id}}" class="btn catalog__item__btn">Подробнее</a>
+
+                        {{#if @root.isAuth}}
+                            <button id="{{_id}}" class="btn-admin catalog-admin__btn_machine_delete">Удалить машину</button>
+                        {{/if}}
+
+                    </div>
+                </li>
+            {{/each}}
+        </menu>
+    </div>
+</section>
+
+<section class="catalog__feedback">
+    <div class="container">
+        <div class="catalog__feedback__wrapper">
+            <div class="catalog__feedback__info">
+
+                <h4 class="catalog__feedback__title">Не нашли нужный автомобиль? Напишите нам!</h4>
+
+                <form action="#" class="catalog__feedback__form form-client" method="POST">
+
+                    <div class="catalog__feedback__data">
+                        <div class="catalog__feedback__input__block">
+                            <label for="name" class="form__label catalog__feedback__input__label">ФИО</label>
+                            <input name="name" id="name" value="" class="form__input catalog__feedback__input input-name"/>
+                        </div>
+                        <div class="catalog__feedback__input__block">
+                            <label for="phone" class="form__label catalog__feedback__input__label">Номер телефона</label>
+                            <input name="phone" id="phone" type="number" value="" class="form__input catalog__feedback__input input-tel"/>
+                        </div>
+                        <div class="catalog__feedback__input__block">
+                            <label for="email" class="form__label catalog__feedback__input__label">E-mail</label>
+                            <input name="email" id="email" value="" class="form__input catalog__feedback__input input-email"/>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog__feedback__comments__block">
+                        <label for="comments" class="catalog__feedback__comments__label">Коментарий</label>
+                        <textarea name="comments" id="comments" placeholder="Здесь вы можете уточнить ваши пожелания" class="catalog__feedback__comments"></textarea>
+                    </div>
+
+                    <div class="catalog__feedback__submit">
+                        <button class="btn catalog__feedback__btn btn-form-submit">Отправить</button>
+                        <span class="catalog__feedback__agreement">Нажимая на кнопку «Отправить», вы даёте <a href="/privacy.html" target="_blank">согласие</a> на обработку своих персональных данных</span>
+                    </div>
+                </form>
+
+            </div>
+            <img class="catalog__feedback__img" src="{{data.imgFormUrl}}" alt="feedback_img">
+        </div>
+    </div>
+</section>
+
+{{>footerSection}}
+<script src="/{{fileScript}}"></script>

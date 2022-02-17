@@ -1,0 +1,29 @@
+.btn-admin {
+    width: 80px;
+    cursor: pointer;
+    font-size: 10px;
+    background-color: #D25FD2;
+    transition: 0.15s all;
+    border: 2px solid #737373;
+    &:hover {
+        background-color: #B344FE;
+        transition: 0.15s all;
+    }
+}
+
+.title {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.error-alert {
+    background: darksalmon;
+    border-radius: 5px;
+    padding: 5px;
+    color: red;
+    &_phone {
+        margin-top: 20px;
+        display: block;
+        width: 190px;
+    }
+}

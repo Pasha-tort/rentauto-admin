@@ -1,0 +1,37 @@
+#slider {
+    overflow: hidden;
+    padding-top: 235px;
+}
+
+#viewport {
+    width: 100vw;
+    height: 415px;
+    overflow: hidden;
+}
+ 
+.slider {
+    position: relative;
+    width: 100vw;
+    height: 415px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+ 
+.slide {
+    width: 100%;
+    height: 415px;
+    position: absolute;
+    transition: 400ms all;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+}
+ 
+.slide img {
+    max-width: 935px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    object-fit: cover;
+    object-position: 0;
+}

@@ -1,0 +1,100 @@
+@import './libs/fonts.scss';
+
+* {
+    font-family: 'SFPro-Display', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+body {
+    background: linear-gradient(0deg, #D6D6D6, #fff);
+    position: relative;
+    height: 100%;
+}
+
+.body-ovh {
+	overflow: hidden;
+	touch-action: none;
+	-ms-touch-action: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+li {
+    list-style-type: none;
+}
+
+.main {
+    position: relative;
+}
+
+.line {
+    margin-top: 50px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.5);;
+    width: 100%;
+}
+
+@media(max-width: 1400px) {
+    .container {
+        width: 950px;
+    }
+}
+
+@media(max-width: 991px) {
+    .container {
+        width: 720px;
+    }
+}
+
+@media(max-width: 767px) {
+    .container {
+        width: 520px;
+    }
+}
+
+@media(max-width: 575px) {
+    .container {
+        width: calc(100vw - 32px);
+        &__nav-mobile {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+
+    .line {
+        margin-top: 30px;
+    }
+}
+
+
+@import './btn';
+@import './other';
+@import './modal';
+@import './blocks/nav';
+@import './blocks/slider-header';
+@import './blocks/slider';
+@import './blocks/catalog-home';
+@import './blocks/exchange-auto';
+@import './blocks/scroll-slider';
+@import './blocks/questions';
+@import './blocks/footer';
+@import './blocks/auth';
+
+@import './blocks/nav-catalog';
+@import './blocks/catalog';
+
+@import './blocks/details';
+@import './blocks/cookie';
+@import './blocks/error';
+
+@import './admin/modal.scss';
+@import './admin/phone.scss';
+@import './admin/questions.scss';
+
+@import './adminPanel/index.admin';

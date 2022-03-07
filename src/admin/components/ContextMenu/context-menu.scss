@@ -1,6 +1,9 @@
 .context-menu {
 	&__wrapper {
 		display: none;
+		position: absolute;
+		width: 250px;
+		z-index: 3;
 		&_active {
 			display: block;
 		}
@@ -11,5 +14,6 @@
 	}
 	&__item {
 		display: block;
+		list-style-type: none;
 	}
 }

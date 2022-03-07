@@ -1,4 +1,4 @@
-const {Router} = require('express');
+const { Router } = require('express');
 const fs = require('fs');
 const path = require('path');
 const router = Router();
@@ -6,10 +6,10 @@ const router = Router();
 const tempFiles = path.resolve(path.dirname(path.dirname(__dirname))) + '/temp';
 const rootPath = path.resolve(path.dirname(path.dirname(__dirname)));
 
-router.get('/tempHtml', async(req, res) => {
+router.get('/tempHtml', async (req, res) => {
 	try {
 		res.sendFile(tempFiles + '/temp.html')
-	} catch(e) {
+	} catch (e) {
 		console.log(e)
 	}
 });
@@ -29,8 +29,8 @@ router.get('/tempHtml', async(req, res) => {
 // 	}
 // })
 
-router.post('/createTempHtml', async(req, res) => {
-	const {html} = req.body;
+router.post('/createTempHtml', async (req, res) => {
+	const { html } = req.body;
 
 	try {
 		fs.writeFile(tempFiles + '/temp.html', html, (err) => {
@@ -38,7 +38,7 @@ router.post('/createTempHtml', async(req, res) => {
 			console.log('Файл HTML создан')
 		})
 		res.send();
-	} catch(e) {
+	} catch (e) {
 		console.log(e)
 	}
 });

@@ -1,79 +1,95 @@
 'use strict';
 
+const path = require('path');
+
 const MiniExtractPlugin = require('mini-css-extract-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const cssLoaders = param => {
-    const loader = [
-                        {
-                            loader: MiniExtractPlugin.loader,
-                        }, 
-                        'css-loader'
-                    ]
+	const loader = [
+		{
+			loader: MiniExtractPlugin.loader,
+		},
+		'css-loader'
+	]
 
-    if (param) {
-        loader.push(param)
-    }
+	if (param) {
+		loader.push(param)
+	}
 
-    return loader
+	return loader
 }
 
-const filename = ext => `[name].${ext}`
+const filename = ext => `[contenthash].${ext}`
 
 module.exports = {
-  mode: 'development',
-  entry: {
-	index: './src/js/index.js', 
-	catalog: './src/js/catalogIndex.js',
-	details: './src/js/detailsIndex.js',
-	admin: './src/admin'
-  },
-  resolve: {
-	  extensions: ['.js', '.jsx', '.ts', 'tsx']
-  },
-  output: {
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
-    path: __dirname + '/adminPublic',
-  },
-  watch: true,
+	context: path.resolve(__dirname),
+	mode: 'development',
+	entry: {
+		index: './src/js/index.js',
+		catalog: './src/js/catalogIndex.js',
+		details: './src/js/detailsIndex.js',
+		admin: './src/admin'
+	},
+	resolve: {
+		extensions: ['.js', '.jsx', '.ts', 'tsx']
+	},
+	output: {
+		filename: '[name].[contenthash].js',
+		chunkFilename: '[name].[contenthash].js',
+		path: __dirname + '/public',
+	},
+	watch: true,
+	watchOptions: {
+		aggregateTimeout: 300,
+		poll: 1000,
+		ignored: '**/node_modules/',
+	},
 
-  devtool: "source-map",
-  plugins: [
-	new CleanWebpackPlugin({
-		dry: true,
-	}),
-	new MiniExtractPlugin({
-		filename: filename('css'),
-	})
-  ],
+	devtool: "source-map",
+	plugins: [
+		new CleanWebpackPlugin(),
+		new MiniExtractPlugin({
+			filename: filename('css'),
+		}),
+		new HTMLWebpackPlugin({
+			template: './src/admin/index.html',
+			filename: 'admin.html',
+			chunks: ['admin']
+		}),
+	],
 
-    module: {
-        rules: [
+	module: {
+		rules: [
 			{
-                test: /\.(sass|scss)$/,
-                use: cssLoaders('sass-loader')
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            ['@babel/preset-env', {
-                                debug: true,
-                                corejs: 3,
-                                useBuiltIns: 'usage'
-                            }],
-							'@babel/preset-react'
-                        ],
-                        plugins: [
-                            '@babel/plugin-syntax-dynamic-import'
-                        ]
-                    }
-                }
-            }
-        ]
-    }
+				test: /\.(sass|scss)$/,
+				use: cssLoaders('sass-loader')
+			},
+			{
+				test: /\.(svg|png|jpg|gif)$/,
+				loader: 'file-loader',
+				options: {
+					name: 'img/[name].[contenthash].[ext]'
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: [
+							['@babel/preset-env', {
+								debug: true,
+								corejs: 3,
+								useBuiltIns: 'usage'
+							}],
+							'@babel/react'
+						],
+					}
+				}
+			}
+		]
+	}
 };

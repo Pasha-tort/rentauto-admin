@@ -1,49 +1,45 @@
-const {Router} = require('express');
+const { Router } = require('express');
 const fs = require('fs');
 const path = require('path');
 const router = Router();
 
 const pathViews = path.resolve(path.dirname(path.dirname(__dirname))) + '/views';
-const pathAdminPublic = path.resolve(path.dirname(path.dirname(__dirname))) + '/adminPublic';
-const pathPublic = path.resolve(path.dirname(path.dirname(__dirname))) + '/public/adminPanel/index.html';
-const pathAdminApp = path.resolve(path.dirname(path.dirname(__dirname))) + '/public/adminPanel/index.html';
+const pathPublic = path.resolve(path.dirname(path.dirname(__dirname))) + '/public';
 
-router.get('/', async(req, res) => {
-	try {
-
-		function readFiles(path) {
-			return new Promise((res, rej) => {
-				fs.readdir(path, (err, files) => {
-					if (err) {
-						rej()
-					} else {
-						res(files)
-					}
-				});
-			})
-		}
-
-		let fileScript = null;
-
-		await readFiles(pathAdminPublic)
-			.then(res => {
-				files = res.forEach((file) => {
-					if (/^admin\.\w+.js$/g.test(file)) {
-						fileScript = file;
-					}
-				})
-			})
-
-		await res.render('admin', {
-			layout: 'admin',
-			fileScript,
+async function writeFile(path, data, cb) {
+	return new Promise((res, rej) => {
+		fs.writeFile(path, data, (err) => {
+			if (err) { rej() };
+			console.log('Write file completed')
+			res()
 		})
-	} catch(e) {
+	})
+}
+
+router.get('/', async (req, res) => {
+	try {
+		res.sendFile(pathPublic + '/admin.html');
+	} catch (e) {
 		console.log(e)
 	}
 })
 
-router.get('/pagesList', async(req, res) => {
+router.post('/saveChanges', async (req, res) => {
+	const { nameFile, html } = req.body;
+
+	try {
+		await writeFile(
+			pathViews + `/partials/${nameFile}.hbs`,
+			html,
+		)
+		console.log('finish')
+		res.json()
+	} catch (e) {
+		console.log(e)
+	}
+})
+
+router.get('/pagesList', async (req, res) => {
 	try {
 		function readFiles(path) {
 			return new Promise((resolve, reject) => {
@@ -68,13 +64,13 @@ router.get('/pagesList', async(req, res) => {
 			.catch(() => {
 				throw new Error('Ошибка чтения каталога')
 			})
-	} catch(e) {
+	} catch (e) {
 		console.log(e)
 	}
 });
 
-router.post('/createNewPage', async(req, res) => {
-	const {fileName} = req.body;
+router.post('/createNewPage', async (req, res) => {
+	const { fileName } = req.body;
 	try {
 		// let pages;
 		// await fs.readdir(pathViews, (err, files) => {
@@ -102,7 +98,7 @@ router.post('/createNewPage', async(req, res) => {
 		);
 
 		await res.json(`${fileName}.hbs`)
-	} catch(e) {
+	} catch (e) {
 		console.log(e)
 	}
 })

@@ -1,5 +1,55 @@
 .text-editor {
+	&_input {
+		&:hover {
+			cursor: text;
+		}
+	}
+}
+
+.context-menu {
+	&__wrapper {
+		display: none;
+		position: absolute;
+		width: 250px;
+		padding: 5px 0px;
+		border-radius: 4px;
+		border: 1px solid #5D5D5D;
+		background: #A09EA1;
+		z-index: 3;
+		&_active {
+			display: block;
+		}
+	}
+	&__list {
+		display: block;
+		background: #A09EA1;
+	}
+	&__item {
+		display: block;
+		list-style-type: none;
+		background: inherit;
+		transition: 0.15s all;
+		&:hover {
+			background: rgba(#fff, 0.8);
+			transition: 0.15s all;
+			cursor: default;
+		}
+	}
+}
+
+[data-editor] {
+	outline-color: #906CD7;
+	outline-offset: 0px;
+	transition: 0.15s all;
+	cursor: pointer;
 	&:hover {
-		cursor: pointer;
+		outline: 2px solid #906CD7;
+		outline-offset: 4px;
+		transition: 0.15s all;
+	}
+	&:focus {
+		outline: 2px solid #FD3F49;
+		outline-offset: 4px;
+		transition: 0.15s all;
 	}
 }

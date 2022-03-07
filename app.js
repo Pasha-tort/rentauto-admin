@@ -49,7 +49,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'temp')));
-app.use(express.static(path.join(__dirname, 'adminPublic')));
+app.use(express.static(path.join(__dirname, 'styles')));
 
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(secret));

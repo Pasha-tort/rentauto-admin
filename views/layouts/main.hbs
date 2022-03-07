@@ -1,22 +1,7 @@
 {{> head }}
-<body>
-
-		{{#if isHome}}
-        {{>navbar}}
-		{{/if}}
-
-		{{#if isCatalog}}
-			{{>navbar}}
-			{{> catalogHeader}}
-		{{/if}}
-
-		{{#if isDetails}}
-			{{>navbar}}
-		{{/if}}
-
-		<div class="main-container">
-			{{{ body }}}
-		</div>
-		{{> footer}}
+<body>		
+	{{{ body }}}
+	
+	{{> footer}}
 </body>
 </html>

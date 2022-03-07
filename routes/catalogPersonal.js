@@ -22,7 +22,7 @@ const data = {
     imgBackgroundStyle,
 }
 
-const pathAdminPublic = path.resolve(path.dirname(__dirname)) + '/adminPublic';
+const pathPublic = path.resolve(path.dirname(__dirname)) + '/public';
 
 router.get('/', async(req, res) => {
 
@@ -45,7 +45,7 @@ router.get('/', async(req, res) => {
 
 		let fileScript = null;
 
-		await readFiles(pathAdminPublic)
+		await readFiles(pathPublic)
 			.then(res => {
 				files = res.forEach((file) => {
 					if (/^catalog\.\w+.js$/g.test(file)) {
@@ -54,13 +54,13 @@ router.get('/', async(req, res) => {
 				})
 			})
 
-        machines.forEach( async(item) => {
-            if (item.photo.length === 0 && item.avatar !== '/img/catalog/emptyPhoto2.png') {
-                item.avatar = '/img/catalog/emptyPhoto2.png';
-                const avatar = item.avatar;
-                await MachineCommercial.findByIdAndUpdate(item._id, {avatar});
-            }
-        });
+        // machines.forEach( async(item) => {
+        //     if (item.photo.length === 0 && item.avatar !== '/img/catalog/emptyPhoto2.png') {
+        //         item.avatar = '/img/catalog/emptyPhoto2.png';
+        //         const avatar = item.avatar;
+        //         await MachineCommercial.findByIdAndUpdate(item._id, {avatar});
+        //     }
+        // });
 
         machines.forEach( async(item) => {
 			
@@ -70,7 +70,7 @@ router.get('/', async(req, res) => {
                 await MachinePersonal.findByIdAndUpdate(item._id, {avatar});
             }
         });
-		console.log(fileScript)
+		
         res.render('catalog', {
             isCatalogPersonal,
 			fileScript,
@@ -137,7 +137,7 @@ router.get('/:id', async(req, res) => {
 
 		let fileScript = null;
 
-		await readFiles(pathAdminPublic)
+		await readFiles(pathPublic)
 			.then(res => {
 				files = res.forEach((file) => {
 					if (/^details\.\w+.js$/g.test(file)) {

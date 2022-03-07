@@ -20,7 +20,7 @@ const data = {
     imgBackgroundStyle,
 }
 
-const pathAdminPublic = path.resolve(path.dirname(__dirname)) + '/adminPublic';
+const pathPublic = path.resolve(path.dirname(__dirname)) + '/public';
 
 router.get('/', async(req, res) => {
 
@@ -43,7 +43,7 @@ router.get('/', async(req, res) => {
 
 		let fileScript = null;
 
-		await readFiles(pathAdminPublic)
+		await readFiles(pathPublic)
 			.then(res => {
 				files = res.forEach((file) => {
 					if (/^catalog\.\w+.js$/g.test(file)) {
@@ -127,7 +127,7 @@ router.get('/:id', async(req, res) => {
 
 		let fileScript = null;
 
-		await readFiles(pathAdminPublic)
+		await readFiles(pathPublic)
 			.then(res => {
 				files = res.forEach((file) => {
 					if (/^details\.\w+.js$/g.test(file)) {

@@ -9,9 +9,7 @@ const Advantage = require('../models/Advantages');
 const CatalogHomeItem = require('../models/CatalogHomeItem');
 const Exchange = require('../models/Exchange');
 
-// const {leftBlock, rightBlock} = require('../utils/renderCatalogHome');
-
-const pathAdminPublic = path.resolve(path.dirname(__dirname)) + '/adminPublic';
+const pathPublic = path.resolve(path.dirname(__dirname)) + '/public';
 
 router.get('/', async(req, res) => {
 
@@ -41,7 +39,7 @@ router.get('/', async(req, res) => {
 
 		let fileScript = null;
 
-		await readFiles(pathAdminPublic)
+		await readFiles(pathPublic)
 			.then(res => {
 				files = res.forEach((file) => {
 					if (/^index\.\w+.js$/g.test(file)) {

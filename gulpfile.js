@@ -1,7 +1,7 @@
 // const gulp        = require('gulp');
-const {src, dest, watch, parallel} = require('gulp');
+const { src, dest, watch, parallel } = require('gulp');
 // const browserSync = require('browser-sync').create();
-const sass = require('gulp-sass')(require ('sass'));;
+const sass = require('gulp-sass')(require('sass'));;
 const rename = require("gulp-rename");
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
@@ -26,38 +26,26 @@ const imagemin = require('gulp-imagemin')
 // }
 
 function styles() {
-    return src("src/sass/**/*.+(sass|scss)")
-        .pipe(sass.sync({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(rename({
-            prefix: "",
-            suffix: ".min"
-        }))
-        .pipe(autoprefixer())
-        .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(dest("public"))
-}
-
-function stylesAdmin() {
-	return src("public/admin.css")
-        .pipe(cssmin())
+	return src("src/sass/**/*.+(sass|scss)")
+		.pipe(sass.sync({ outputStyle: 'compressed' }).on('error', sass.logError))
 		.pipe(rename({
-            prefix: "",
-            suffix: ".min"
-        }))
+			prefix: "",
+			suffix: ".min"
+		}))
 		.pipe(autoprefixer())
-        .pipe(dest("public"))
+		.pipe(cleanCSS({ compatibility: 'ie8' }))
+		.pipe(dest("styles"))
 }
 
-
-function watching(){
-    watch("src/sass/**/*.+(sass|scss|css)").on("change", parallel("styles"));
-    // watch('src/css/**/*.css').on('change', parallel("stylesAll"));
-    // watch("src/audio/**/*.mp3").on("change", parallel ("audio"));
-    // watch("src/*.html").on("change", parallel('htmlMin'));
-    // watch("src/js/**/*.js").on("change", parallel('scripts'));
-    // watch("src/icons/**/*").on("all", parallel('icons'));
-    // watch("src/fonts/**/*").on("all", parallel('fonts'));
-    watch("src/img/**/*").on("all", parallel('images'));
+function watching() {
+	watch("src/sass/**/*.+(sass|scss|css)").on("change", parallel("styles"));
+	// watch('src/css/**/*.css').on('change', parallel("stylesAll"));
+	// watch("src/audio/**/*.mp3").on("change", parallel ("audio"));
+	// watch("src/*.html").on("change", parallel('htmlMin'));
+	// watch("src/js/**/*.js").on("change", parallel('scripts'));
+	// watch("src/icons/**/*").on("all", parallel('icons'));
+	// watch("src/fonts/**/*").on("all", parallel('fonts'));
+	watch("src/img/**/*").on("all", parallel('images'));
 	// watch("public/admin.css").on('all', parallel('stylesAdmin'));
 }
 
@@ -98,10 +86,10 @@ function watching(){
 //         .pipe(gulp.dest('dist/mailer'));
 // });
 
-function images () {
-    return src("src/img/**/*")
-        .pipe(imagemin())
-        .pipe(dest('public/img'))
+function images() {
+	return src("src/img/**/*")
+		.pipe(imagemin())
+		.pipe(dest('public/img'))
 };
 
 // gulp.task('default', gulp.parallel('watch','server','styles','html','scripts','fonts','icons'/*, 

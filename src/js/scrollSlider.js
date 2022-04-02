@@ -1,29 +1,20 @@
 export default function scrollSlider() {
 
-	// const interval = setInterval(startCheck, 10)
-
-	// //The "nav.js" module will execute faster, so you need to create an artificial delay
-	// //Модуль nav.js выполняется быстрее для этого нужно создать искуственную задержку.
-	
-	// function startCheck() {
-	// 	if (document.querySelector('.nav__wrapper') || document.querySelector('.nav__wrapper_mobile')) {
-	// 		clearInterval(interval);
-	// 		start();
-	// 		console.log('checking...')
-	// 	}
-	// }
-
-	start()
-
-function start() {
-
-	const scrollContainer = document.getElementsByClassName('advantage')[0];
-    const nav = document.querySelector('.nav__wrapper') || document.querySelector('.nav__wrapper_mobile');
-    const slider = document.querySelector('#slider-header');
+    const scrollContainer = document.getElementsByClassName('advantage')[0];
     const boxOverflow = document.querySelector('.scroll__overflow_horizontal');
     const scrollVertical = document.querySelector('.scroll__vertical');
 
+	const widthClient = document.documentElement.clientWidth;
+	let nav;
+
+	if (widthClient < 576) {
+		nav = document.querySelector('.nav__wrapper_mobile');
+	} else {
+		nav = document.querySelector('.nav__wrapper');
+	}
+	
     let heightNav;
+
     if (window.getComputedStyle(nav).height.match(/\d+\.\d+/g)) {
         heightNav = +window.getComputedStyle(nav).height.match(/\d+\.\d+/g)[0].split('.')[0];
     } else {
@@ -129,7 +120,4 @@ function start() {
             scrollHorizontalBox.style.left = `${offsetHorizontal}px`
         }
     });
-}
-
-    
 }

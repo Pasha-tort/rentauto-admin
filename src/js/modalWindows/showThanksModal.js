@@ -1,6 +1,6 @@
 import { showModal } from "./modalShowFind"
 export default function showThanksModal() {
-    const modalThanks = (imgCloseInput, imgCloseOutput) => {
+	const modalThanks = (imgCloseInput, imgCloseOutput) => {
 		return `
 				<div class="modal-client__wrapper modal-client__thanks">
 					<div class="modal-client__wrapper_second">

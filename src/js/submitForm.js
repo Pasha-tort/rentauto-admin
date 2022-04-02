@@ -75,7 +75,7 @@ export default function submitForm(elementSelector, urlMailer, btnTarget) {
                     error = false;
                 }
 
-                if (!input.value || input.value === '+7 ') {
+                if (!input.value || input.value === '+7') {
                     input.classList.add('form-input_error');
                     input.classList.remove('form-input_complete')
                     error = true;

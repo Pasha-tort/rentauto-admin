@@ -1,60 +1,129 @@
+<div class="container__nav-mobile nav__wrapper_mobile">
+	<div class="nav__hamburger">
+		<span class="nav__hamburger__item"></span>
+		<span class="nav__hamburger__item"></span>
+		<span class="nav__hamburger__item"></span>
+	</div>
 
-    <nav class="container nav__wrapper">
-        <div class="nav__links">
-            <address><a href="/" class="nav__logo__box"><img src="/icons/logoBlack.svg" class="nav__logo" alt="logo"/></a></address>
-            <ul class="nav__page">
-                <li class="nav__link">
+	<address><a href="/" class="nav__logo__box_mobile"><img src="/icons/logoBlack.svg" class="nav__logo_mobile" /></a>
+	</address>
 
-                    <div class="nav__drop-down-menu__box">
-                        <a class="nav__link-drop-menu">Каталог</a>
-                        <div class="nav__drop-down-menu__icon"></div>
-                    </div>
+</div>
 
-                    <ul class="nav__drop-down-menu">
-                        <li class="nav__drop-down-menu__item"><a href="/catalog/personal/">Личный автомобиль</a></li>
-                        <li class="nav__drop-down-menu__item"><a href="/catalog/commercial/">Коммерческий автомобиль</a></li>
-                        <li class="nav__drop-down-menu__item"><a href="/catalog/special/">Специальный транспорт</a></li>
-                    </ul>
-                </li>
-                <li class="nav__link"><a id="#about" href="/#about" class="nav__anchor">О нас</a></li>
-                <li class="nav__link"><a id="#rent" href="/#rent" class="nav__anchor">Об аренде</a></li>
-            </ul>
-        </div>
-        <div class="nav__connection">
-            <div class="phone-admin__box">
-                <div class="phone__list">
-                    {{#each phones}}
-                        <div class="phone-admin__item">
-                            <a href="tel:{{phone}}" id="{{_id}}" class="nav__phone">{{phoneUI}}</a>
-                            {{#if @root.isAuth}}
-                                <div class="phone-admin__btn-box">
-                                    <button class="btn-admin phone__btn_admin_edit">Редактировать телефон</button>
-                                    <button class="btn-admin phone__btn_admin_delete">Удалить телефон</button>
-                                </div>
-                            {{/if}}
-                        </div>
-                    {{/each}}
-
-                    {{#if @root.errorPhoneType}}
-                        <span class="error-alert error-alert_phone">{{@root.errorPhoneType}}</span>
-                    {{/if}}
-                    {{#if @root.errorPhoneLength}}
-                        <span class="error-alert error-alert_phone">{{@root.errorPhoneLength}}</span>
-                    {{/if}}
-
-                </div>
-                {{#if isAuth}}
-                    <button class="btn-admin phone__btn_admin_add">Добавить телефон</button>
-                {{/if}}
-            </div>
-            
-            <button class="btn nav__btn">Оставить заявку</button>
-            {{#if isAuth}}
-                
-                <a href="/auth/logout" class="btn-admin auth__logout">Выйти из админ. панели</a>
-                
-            {{/if}}
-        </div>
-    </nav>
+<div class="nav__menu_mobile">
+	<div class="container__nav-mobile nav__wrapper__menu_mobile">
+		<div class="nav__wrapper_mobile">
 
 
+			<img class="nav__close_mobile" src="/icons/menuClose.svg">
+			<address><a href="/" class="nav__logo__box_mobile"><img src="/icons/logoBlack.svg"
+						class="nav__logo_mobile" /></a></address>
+
+		</div>
+
+		<div class="container nav__container_mobile">
+			<ul>
+				<li class="nav__link_mobile">
+
+					<div class="nav__drop-down-menu__box_mobile">
+						<a class="nav__link-drop-menu_mobile">Каталог</a>
+						<div class="nav__drop-down-menu__icon_mobile"></div>
+					</div>
+
+					<ul itemscope itemtype="http://schema.org/SiteNavigationElement" class="nav__drop-down-menu_mobile">
+						<li itemprop="url" class="nav__drop-down-menu__item_mobile"><a href="/catalog/personal/">Личный
+								автомобиль</a></li>
+						<li itemprop="url" class="nav__drop-down-menu__item_mobile"><a
+								href="/catalog/commercial/">Коммерческий автомобиль</a></li>
+						<li itemprop="url" class="nav__drop-down-menu__item_mobile"><a
+								href="/catalog/special/">Специальный транспорт</a></li>
+					</ul>
+				</li>
+				<div class="nav__line_mobile"></div>
+				<li class="nav__link_mobile"><a href="/#about" class="nav__anchor_mobile">О нас</a></li>
+				<div class="nav__line_mobile"></div>
+				<li class="nav__link_mobile"><a href="/#rent" class="nav__anchor_mobile">Об аренде</a></li>
+				<div class="nav__line_mobile"></div>
+			</ul>
+
+			<ul class="nav__phone-list_mobile">
+				{{#each phones}}
+				<li class="nav__phone__item_mobile"><a href="tel:{{item.phone}}" id="{{item._id}}">{{item.phoneUI}}</a>
+				</li>
+				{{/each}}
+			</ul>
+
+			<div class="nav__btn__box_mobile">
+				<button class="btn nav__btn_mobile">Оставить заявку</button>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+
+<nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="container nav__wrapper">
+	<div class="nav__links">
+		<address><a href="/" class="nav__logo__box"><img src="/icons/logoBlack.svg" class="nav__logo" alt="logo" /></a>
+		</address>
+		<ul class="nav__page">
+			<li class="nav__link">
+
+				<div class="nav__drop-down-menu__box">
+					<a class="nav__link-drop-menu">Каталог</a>
+					<div class="nav__drop-down-menu__icon"></div>
+				</div>
+
+				<ul class="nav__drop-down-menu">
+					<li itemprop="url" class="nav__drop-down-menu__item"><a data-editor-type="anchor-page"
+							href="/catalog/personal/">Личный
+							автомобиль</a></li>
+					<li itemprop="url" class="nav__drop-down-menu__item"><a data-editor-type="anchor-page"
+							href="/catalog/commercial/">Коммерческий
+							автомобиль</a></li>
+					<li itemprop="url" class="nav__drop-down-menu__item"><a data-editor-type="anchor-page"
+							href="/catalog/special/">Специальный
+							транспорт</a></li>
+				</ul>
+			</li>
+			<li class="nav__link"><a id="#about" href="/#about" class="nav__anchor">О нас</a></li>
+			<li class="nav__link"><a id="#rent" href="/#rent" class="nav__anchor">Об аренде</a></li>
+		</ul>
+	</div>
+	<div class="nav__connection">
+		<div class="phone-admin__box">
+			<div class="phone__list">
+				{{#each phones}}
+				<div class="phone-admin__item">
+					<a href="tel:{{phone}}" id="{{_id}}" class="nav__phone">{{phoneUI}}</a>
+					{{#if @root.isAuth}}
+					<div class="phone-admin__btn-box">
+						<button class="btn-admin phone__btn_admin_edit">Редактировать телефон</button>
+						<button class="btn-admin phone__btn_admin_delete">Удалить телефон</button>
+					</div>
+					{{/if}}
+				</div>
+				{{/each}}
+
+				{{#if @root.errorPhoneType}}
+				<span class="error-alert error-alert_phone">{{@root.errorPhoneType}}</span>
+				{{/if}}
+				{{#if @root.errorPhoneLength}}
+				<span class="error-alert error-alert_phone">{{@root.errorPhoneLength}}</span>
+				{{/if}}
+
+			</div>
+			{{#if isAuth}}
+			<button class="btn-admin phone__btn_admin_add">Добавить телефон</button>
+			{{/if}}
+		</div>
+
+		<button class="btn nav__btn">Оставить заявку</button>
+		{{#if isAuth}}
+
+		<a href="/auth/logout" class="btn-admin auth__logout">Выйти из админ. панели</a>
+
+		{{/if}}
+	</div>
+</nav>

@@ -33,7 +33,7 @@ module.exports = {
 		admin: './src/admin'
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', '.ts', 'tsx']
+		extensions: ['.js', '.jsx', '.ts', '.tsx']
 	},
 	output: {
 		filename: '[name].[contenthash].js',
@@ -72,6 +72,10 @@ module.exports = {
 				options: {
 					name: 'img/[name].[contenthash].[ext]'
 				}
+			},
+			{
+				test: /\.(ts|tsx)$/,
+				loader: 'ts-loader',
 			},
 			{
 				test: /\.js$/,

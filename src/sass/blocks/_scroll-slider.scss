@@ -1,6 +1,5 @@
 .advantage {
     margin: 0 auto;
-    margin-top: 150px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 50px;
@@ -8,11 +7,11 @@
     &__info {
         padding-top: 110px;
         position: relative;
-        height: 225px;
     }
     &__icon {
         position: absolute;
-        bottom: 85px;
+        // bottom: 85px;
+		transform: translateY(-70%);
         z-index: 1;
     }
     &__desc {
@@ -20,6 +19,7 @@
         z-index: 5;
         font-size: 18px;
         font-weight: 400;
+		height: auto;
     }
     &__item-title {
         z-index: 5;
@@ -30,7 +30,6 @@
 
 .scroll-box {
     display: block;
-    // width: 500px;
 }
 
 .scroll-item {
@@ -45,7 +44,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 100vh;
+        min-height: 100vh;
         margin-top:25px;
         text-align: justify;
     }
@@ -57,7 +56,7 @@
         width: 100%;
         position: sticky;
         top: 0px;
-		background: #1D3230;
+		background: #2C3231;
     }
     &__overflow_horizontal {
         overflow: hidden;
@@ -99,7 +98,6 @@
 
 @media(max-width: 991px) {
     .advantage {
-        margin-top: 80px;
         &__item-title {
             font-size: 20px;
         }
@@ -115,12 +113,14 @@
                 padding-bottom: 80px;
             }
         }
+		&__horizontal_fixed {
+			background: #1D3230;
+		}
     }
 }
 
 @media(max-width: 767px) {
     .advantage {
-        margin-top: 50px;
         column-gap: 20px;
         &__item-title {
             font-size: 17px;
@@ -147,7 +147,6 @@
         }
         &__icon {
             width: 60%;
-            bottom: 110px;
         }
         &__desc {
             line-height: 14px;
@@ -171,9 +170,6 @@
     .advantage {
         &__info {
             padding-top: 70px;
-        }
-        &__icon {
-            bottom: 140px;
         }
         &__desc {
             font-size: 14px;

@@ -16,7 +16,8 @@ router.post('/advantages/add', auth, async(req, res) => {
 
         await res.status(200).redirect('/');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
 });
 
@@ -28,7 +29,8 @@ router.post('/advantages/edit', auth, async(req, res) => {
 
         await res.status(200).redirect('/');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
 
     
@@ -38,14 +40,14 @@ router.post('/catalog-home/add', auth, async(req, res) => {
 
     const {title, field} = req.body;
     
-
     try {
         const catalogHomeItem = new CatalogHomeItem({title, field});
         await catalogHomeItem.save();
 
         await res.status(200).redirect('/');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
 });
 
@@ -57,7 +59,8 @@ router.post('/catalog-home/edit', auth, async(req, res) => {
 
         await res.status(200).redirect('/');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
 });
 
@@ -70,6 +73,7 @@ router.post('/exchange/add', async(req, res) => {
         res.redirect('/');
     } catch(e) {
         console.log(e);
+		res.status(500).json();
     }
 });
 
@@ -81,6 +85,7 @@ router.post('/exchange/edit', async(req, res) => {
         res.redirect('/');
     } catch(e) {
         console.log(e);
+		res.status(500).json();
     }
 });
 
@@ -93,6 +98,7 @@ router.post('/catalog-title/edit', async(req, res) => {
         res.redirect(prevUrl);
     } catch(e) {
         console.log(e);
+		res.status(500).json();
     }
 });
 

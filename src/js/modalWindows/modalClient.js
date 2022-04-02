@@ -25,7 +25,7 @@ export default function modalClient(e, urlMailer) {
                                         </div>
                                         <div class="catalog__feedback__input__block">
                                             <label for="phone" class="form__label catalog__feedback__input__label">Номер телефона</label>
-                                            <input name="phone"  value="" class="form__input catalog__feedback__input input-tel"/>
+                                            <input name="phone" value="" class="form__input catalog__feedback__input input-tel"/>
                                         </div>
                                         <div class="catalog__feedback__input__block">
                                             <label for="email" class="form__label catalog__feedback__input__label">E-mail</label>
@@ -74,8 +74,9 @@ export default function modalClient(e, urlMailer) {
 		imgCloseOutput = '<img src="/icons/close.svg" class="modal-admin__close"></img>';
 		imgCloseInput = '';
 		imgModalMobile = '';
-		img = '<img class="catalog__feedback__img modal-client__img" src="/img/modalImg.webp">';
+		img = '<img class="catalog__feedback__img modal-client__img" src="/img/modalImg.jpg">';
 	}
+
 
     const modal = modalClientWindow(img, imgCloseOutput, imgCloseInput, imgModalMobile);
     showModal(modal, e.target);

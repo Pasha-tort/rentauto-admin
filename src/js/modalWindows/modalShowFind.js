@@ -1,5 +1,4 @@
 const bodyEl = document.querySelector('body');
-const mainContainer = document.documentElement.querySelector('.main-container');
 
 export function hideModal(btnTarget) {
     const modal = document.querySelector('.modal-admin__background');
@@ -29,7 +28,10 @@ export function showModal(modalWindow, btnTarget, autoClose) {
 		}, 5000);
 	}
 
-    close.addEventListener('click', () => hideModal(btnTarget));
+    close.addEventListener('click', () => {
+		hideModal(btnTarget);
+		clearTimeout(closeThanks);
+	});
     
     modal.addEventListener('click', (e) => {
         
@@ -38,10 +40,4 @@ export function showModal(modalWindow, btnTarget, autoClose) {
 			clearTimeout(closeThanks);
         }
     });
-
-    if (autoClose) {
-        setTimeout(() => {
-            hideModal();
-        }, 500000);
-    }
 }

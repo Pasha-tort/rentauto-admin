@@ -3,15 +3,14 @@
         <h3 class="title questions__main-title">Об аренде с выкупом</h3>
         <div class="questions__box">
             
-            <menu class="questions__box_left">
+            <menu itemscope itemtype="https://schema.org/FAQPage"  class="questions__box_left">
 
                 {{#if firstBoxQuestions.length}}
                     {{#each firstBoxQuestions}}
-                        <li class="questions__item">
+                        <li itemscope itemtype="https://schema.org/Question" itemprop="mainEntity" class="questions__item">
                             <div class="questions__item__box">
 
-                                
-                                <span class="questions__text">
+                                <span itemprop="name" class="questions__text">
                                     {{title}}
                                 </span>
                                 
@@ -26,7 +25,7 @@
 
                             </div>
 
-                            <span class="questions__answer">
+                            <span itemprop="acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer" class="questions__answer">
                                 {{answer}}
                             </span>
                             <div class="questions__line"></div>

@@ -1,48 +1,57 @@
-{{>navbar}}
 <main class="main">
-
+    
 	<section id="slider-header" class="slider-header">
 		<div class="slider-header__company-name-box company-name-box">
-			<h2 data-editor="text" class="slider-header__company-name">АРЕНДА АВТО</h2>
-			<h3 data-editor="text" class="slider-header__company-name__title">ДВИЖЕНИЕ НА ПУТИ К НОВЫМ ВОЗМОЖНОСТЯМ</h3>
+			<h2 class="slider-header__company-name">АРЕНДА АВТО С ВЫКУПОМ</h2>
+			<h3 class="slider-header__company-name__title">ДВИЖЕНИЕ НА ПУТИ К НОВЫМ ВОЗМОЖНОСТЯМ</h3>
 		</div>
-
+		
 		<ul class="slider-header__wrapper">
 
 			<li class="slider-header__slide__background">
 				<div class="slider-header__slide__box">
-					<img class="slider-header__slide__img" alt="header_auto"
-						src="/img/headerBackground/machinePersonal.webp" />
+					<img class="slider-header__slide__img" alt="header_auto" src="/img/headerBackground/machinePersonal.png"/>
 				</div>
 			</li>
 
 			<li class="slider-header__slide__background">
 				<div class="slider-header__slide__box">
-					<img class="slider-header__slide__img" alt="header_auto"
-						src="/img/headerBackground/machineCommercial.webp" />
+					<img class="slider-header__slide__img" alt="header_auto" src="/img/headerBackground/machineCommercial.png"/>
 				</div>
 			</li>
 
 			<li class="slider-header__slide__background">
 				<div class="slider-header__slide__box">
-					<img class="slider-header__slide__img" alt="header_auto"
-						src="/img/headerBackground/machineSpecial.webp" />
+					<img class="slider-header__slide__img" alt="header_auto" src="/img/headerBackground/machineSpecial.png"/>
 				</div>
 			</li>
 
 		</ul>
-
-		<h1 data-editor="text" class="main__title">Мечтаете о собственном автомобиле, но банки отказывают в кредитах?
-			Надоело тратить деньги на каршеринг и такси? Приходите к нам!</h1>
+		
+		<h1 class="main__title">Мечтаете о собственном автомобиле, но банки отказывают в кредитах? Надоело тратить деньги на каршеринг и такси? Приходите  к нам!</h1>
 	</section>
-
-	{{> catalogHome}}
-	<div class="container">
-		<div class="line"></div>
-	</div>
-	{{>exchange}}
-	{{> scrollSliderHome}}
-	{{> questionsHome}}
-	{{> footerSection}}
+    
+    {{> catalogHome}}
+    <div class="container">
+        <div class="line"></div>
+    </div>
+    <section class="exchange-auto__background">
+        <div class="container exchange-auto">
+            <div class="exchange-auto__info">
+                <h3 class="exchange-auto__desc">{{exchangeField.field}}</h3>
+                <button class="btn exchange-auto__btn">Обмен авто</button>
+                {{#if isAuth}}
+                    <button id="{{exchangeField._id}}" class="btn-admin exchange-auto__btn-admin_edit">Редактировать</button>
+                {{/if}}
+            </div>
+        </div>
+    </section>
+    {{> scrollSliderHome}}
+    {{> questionsHome}}
+    {{> footerSection}}
 </main>
+
 <script src="/{{fileScript}}"></script>
+{{#if isAuth}}
+	<script src="/{{fileScriptAdmin}}"></script>
+{{/if}}

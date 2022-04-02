@@ -1,47 +1,99 @@
-{{>navbar}}
-
 <div class="container">
-    <section class="details">
-        <div class="details__img-box">
-            <div class="details__img-main">
-                <img class="details__slider__main-photo" src="{{mainPhoto}}" alt="Фото машины"/>
-            </div>
-            <ul class="details__slider">
-                {{#each machine.photo}}
-                    <li class="details__slider__item"><img src="{{this.destination}}/{{this.filename}}" alt="Фото машины"/></li>
-                {{/each}}
-            </ul>
-        </div>
-        <div class="details__info">
-            <h2 class="details__name-machine">{{machine.nameMachine}}</h2>
+	<a href={{pathHrefPrev}} data-editor-type="anchor-page" class="details__ref-back">
+		<div class="details__ref-back__icon"></div>
+		Вернуться в каталог
+	</a>
+	<section itemscope itemtype="http://schema.org/Product" class="details">
+		<div class="details__main">
+			<div class="details__img-box">
+				<div class="details__img-main">
+					<img class="details__slider__main-photo" src="{{mainPhoto}}" alt="Фото машины" />
+				</div>
+				<ul class="details__slider">
+					{{#each machine.photo}}
+					<li class="details__slider__item"><img itemprop="image" src="{{this.destination}}/{{this.filename}}"
+							alt="Фото машины" /></li>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="details__desc">
+				{{machine.desc}}
+			</div>
+		</div>
+		<div class="details__info">
+			<h2 itemprop="name" class="details__name-machine">{{machine.nameMachine}}</h2>
 
-            {{#if machine.availability}}
-                <span class="details__availability">В наличии</span>
-            {{else}}
-                <span class="details__availability details__availability_grey">Под заказ</span>
-            {{/if}}
+			{{#if machine.availability}}
+			<span itemprop="availability" href="http://schema.org/InStock" class="details__availability">В
+				наличии</span>
+			{{else}}
+			<span itemprop="availability" href="http://schema.org/InStock"
+				class="details__availability details__availability_grey">Под заказ</span>
+			{{/if}}
 
-            <span class="details__price">{{machine.price}} ₽</span>
-                
-            <ul class="details__specifications">
-                {{#each machine.specifications}}
-                    <li class="details__specifications__item">
-                        <span class="details__specifications__item-name">{{this.specificationName}}:</span>
-                        <span class="details__specifications__item-value">{{this.specificationValue}}</span>
-                    </li>
-                {{/each}}
-            </ul>
+			{{#if notPrice}}
+			<span itemprop="price" class="details__price" value="{{machine.price}}">{{machine.price}}</span>
+			{{else}}
+			<span itemprop="price" class="details__price" value="{{machine.price}}">{{machine.price}} ₽</span>
+			{{/if}}
 
-            <button class="btn details__btn" id="{{machine._id}}" data-type="{{type}}">Заказать авто</button>
-            {{#if isAuth}}
-                <button class="btn-admin details__added-photo" id="{{machine._id}}">Добавить фото</button>
-                <button class="btn-admin details__delete-photo" id="{{machine._id}}">Удалить фото</button>
-                <button class="btn-admin details__avatar-photo" id="{{machine._id}}">Выбрать главное фото</button>
-                <button class="btn-admin details__edit-specifications" id="{{machine._id}}">Редактировать характеристики</button>
-            {{/if}}
-        </div>
-    </section>
+			<button class="btn details__btn" id="{{machine._id}}" data-type="{{type}}">Заказать авто</button>
+
+			{{#if machine.rentTerms.length}}
+			<div class="details__rent">
+				<span class="details__rent__info">
+					<span class="details__rent__title">
+						Аренда с выкупом без первоначального платежа.<br /> Стоимость через:
+					</span>
+					<ul class="details__rent-terms">
+						{{#each machine.rentTerms}}
+						<li class="details__rent-terms__item">
+							<span class="details__rent-terms__item-name">{{this.rentTermsName}}:</span>
+							<div class="details__rent-terms__wrapper-items-value">
+								<span itemprop="price"
+									class="details__rent-terms__item-value">{{this.rentTermsFullValue}} ₽</span>
+								<span itemprop="price"
+									class="details__rent-terms__item-value">({{this.rentTermsMonthlyValue}}
+									₽/мес.)</span>
+							</div>
+
+						</li>
+						{{/each}}
+					</ul>
+
+					<div class="details__rent__line"></div>
+				</span>
+			</div>
+			{{/if}}
+
+			<ul class="details__specifications">
+				{{#each machine.specifications}}
+				<li class="details__specifications__item">
+					<span class="details__specifications__item-name">{{this.specificationName}}:</span>
+					<span class="details__specifications__item-value">{{this.specificationValue}}</span>
+				</li>
+				{{/each}}
+			</ul>
+
+
+			{{#if isAuth}}
+			<button class="btn-admin details__added-photo" id="{{machine._id}}">Добавить фото</button>
+			<button class="btn-admin details__delete-photo" id="{{machine._id}}">Удалить фото</button>
+			<button class="btn-admin details__avatar-photo" id="{{machine._id}}">Выбрать главное фото</button>
+			<button class="btn-admin details__edit-specifications" id="{{machine._id}}">Редактировать
+				характеристики</button>
+			<button class="btn-admin details__edit-desc" id="{{machine._id}}">Редактировать описание</button>
+			{{/if}}
+		</div>
+		<span class="details__offert">
+			Не является публичной офертой.
+		</span>
+	</section>
 </div>
 
 {{>footerSection}}
+
 <script src="/{{fileScript}}"></script>
+{{#if isAuth}}
+<script src="/{{fileScriptAdmin}}"></script>
+{{/if}}

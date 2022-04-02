@@ -3,7 +3,7 @@ import modalClient from "./modalClient";
 
 export default function modalExchange(e) {
 
-    function modalClientWindow(imgClose) { 
+    function modalClientWindow(imgclose) { 
         return `
         
             <div class="modal-exchange__wrapper">

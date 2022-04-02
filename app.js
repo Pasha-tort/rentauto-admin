@@ -20,8 +20,11 @@ const routerCatalogPersonal = require('./routes/catalogPersonal');
 const routerCatalogCommercial = require('./routes/catalogCommercial');
 const routerCatalogSpecial = require('./routes/catalogSpecial');
 const routerMailer = require('./routes/mailer');
-const routerPagesList = require('./routes/apiAdmin/pagesList');
-const routerTemp = require('./routes/apiAdmin/temp');
+
+//admin routes
+const routerEditor = require('./admin/apiAdmin/editor');
+const routerTemp = require('./admin/apiAdmin/temp');
+const routerPages = require('./admin/apiAdmin/pages');
 
 const fileMiddleware = require('./middleware/file');
 const varMiddleware = require('./middleware/variables');
@@ -30,13 +33,13 @@ const errorHandler = require('./middleware/error');
 const app = express();
 
 const hbs = exphbs.create({
-    defaultLayout: 'main',
-    extname: 'hbs',
+	defaultLayout: 'main',
+	extname: 'hbs',
 })
 
 const store = new MongoStore({
-    collection: 'sessions',
-    uri: process.env.MONGODB_URL,
+	collection: 'sessions',
+	uri: process.env.MONGODB_URL,
 });
 
 app.engine('hbs', hbs.engine);
@@ -48,20 +51,20 @@ const secret = 'some secret value';
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, 'temp')));
+app.use(express.static(path.join(__dirname, 'admin/temp')));
 app.use(express.static(path.join(__dirname, 'styles')));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(secret));
 app.use(session({
-    secret: secret,
-    resave: true,
-    saveUninitialized: true,
-    store,
-    cookie: {
-        secure: false,
-        maxAge:  (60*60*1000*24),
-    }
+	secret: secret,
+	resave: true,
+	saveUninitialized: true,
+	store,
+	cookie: {
+		secure: false,
+		maxAge: (60 * 60 * 1000 * 24),
+	}
 }));
 app.use(flash());
 
@@ -78,22 +81,23 @@ app.use('/catalog/personal/', routerCatalogPersonal);
 app.use('/catalog/commercial/', routerCatalogCommercial);
 app.use('/catalog/special/', routerCatalogSpecial);
 app.use('/mailer', routerMailer);
-app.use('/admin', routerPagesList)
-app.use('/temp', routerTemp)
-app.use('/adminPanel/', errorHandler)
+
+app.use('/admin', routerEditor);
+app.use('/temp', routerTemp);
+app.use('/pages', routerPages);
 app.use(errorHandler);
 
 const PORT = process.env.PORT;
 
 async function start() {
-    try {
-        mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true})
-        app.listen(PORT, () => {
-            console.log(`Server is runing on port ${PORT}`)
-        })
-    } catch(e) {
-        console.log(e)
-    }
+	try {
+		mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true })
+		app.listen(PORT, () => {
+			console.log(`Server is runing on port ${PORT}`)
+		})
+	} catch (e) {
+		console.log(e)
+	}
 }
 
 start();

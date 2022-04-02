@@ -15,3 +15,5 @@ window.addEventListener("DOMContentLoaded", async () => {
 	detailsSlider();
 
 });
+
+

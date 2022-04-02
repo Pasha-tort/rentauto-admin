@@ -1,0 +1,12 @@
+@mixin btn($width, $height, $background, $border, $background-hover) {
+	width: $width;
+	height: $height;
+	background: $background;
+	border: $border;
+	transition: 0.15s all;
+	&:hover {
+		background: $background-hover;
+		transition: 0.15s all;
+		cursor: pointer;
+	}
+}

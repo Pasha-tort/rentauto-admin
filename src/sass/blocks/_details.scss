@@ -7,12 +7,82 @@
     background: #fff;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
     border-radius: 10px;
+	width: 100%;
+	&__ref-back {
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		font-weight: 400;
+		color:#000;
+		position: absolute;
+		left: 0px;
+		top: -35px;
+		text-decoration: none;
+		&:before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0px;
+            bottom: -3px;
+            height: 1px;
+            width: 0%;
+            background-color: #000;
+            transition: 0.15s all;
+        }
+        &:hover {
+			cursor: pointer;
+            &:before {
+                width: 100%;
+                transition: 0.15s all;
+            }
+        }
+		&__icon {
+			width: 20px;
+			height: 20px;
+			position: relative;
+			transform: rotate(90deg);
+			&:after {
+                position: absolute;
+                left: 1px;
+                top: 50%;
+                content: '';
+                width: 51%;
+                background: #000;
+                height: 1px;
+                transform: rotate(40deg);
+                transition: 0.3s all;
+            }
+            &:before {
+                position: absolute;
+                right: 0px;
+                top: 50%;
+                content: '';
+                width: 51%;
+                background: #000;
+                height: 1px;
+                transform: rotate(-40deg);
+                transition: 0.3s all;
+            }
+		}
+	}
     &__img-box {
         display: grid;
         grid-template-rows: 391px 70px;
         row-gap: 10px;
         width: 557px;
     }
+	&__main {
+		display: flex;
+		flex-direction: column;
+		// display: grid;
+		// grid-template-columns: 1fr;
+	}
+	&__desc {
+		white-space: pre-line;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 120%;
+	}
     &__img-main {
         display: flex;
         justify-content: center;
@@ -24,6 +94,7 @@
     &__info {
         display: flex;
         flex-direction: column;
+		width: 100%;
     }
     &__name-machine {
         font-weight: 600;
@@ -35,6 +106,47 @@
         font-weight: 600;
         font-size: 24px;
     }
+	&__rent {
+		display: block;
+		margin-top: 20px;
+        font-weight: 400;
+        font-size: 24px;
+		&__title {
+			font-weight: 600;
+			font-size: 23px;
+		}
+		&__price {
+			font-weight: 600;
+		}
+		&__line {
+			margin-top: 20px;
+			width: 100%;
+			height: 2px;
+			background: #000;
+		}
+	}
+	&__rent-terms {
+		margin-top: 10px;
+		font-weight: 400;
+		font-size: 20px;
+		display: grid;
+		row-gap: 5px;
+		&__item {
+			display: grid;
+            grid-template-columns: 1fr 1fr;	
+		}
+		&__item-name {
+			font-size: 20px;
+		}
+		&__item-value {
+			font-size: 18px;
+		}
+		&__wrapper-items-value {
+			display: flex;
+			flex-direction: column;
+			align-self: end;
+		}
+	}
     &__availability {
         font-weight: 400;
         font-size: 14px;
@@ -45,9 +157,11 @@
     }
     &__specifications {
         margin-top: 19px;
+		width: 100%;
         &__item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
         }
         &__item-name {
             font-weight: 400;
@@ -59,6 +173,8 @@
             font-weight: 400;
             font-size: 18px;
             line-height: 140%;
+            justify-self: end;
+			margin-left: 10px;
         }
     }
     &__btn {
@@ -90,6 +206,12 @@
 			}
         }
     }
+	&__offert {
+		font-size: 18px;
+		font-weight: 400;
+		display: block;
+		margin: 0 auto;
+	}
 }
 
 .tns {
@@ -119,19 +241,40 @@
 
 @media(max-width: 1400px) {
     .details {
-        &__specifications {
-            &__item-value {
-                justify-self: end;
-            }
-        }
+		&__rent-terms {
+			&__item-value {
+				font-size: 17px;
+			}
+		}
+		&__specifications {
+			&__item-value {
+				font-size: 15px;
+			}
+		}
     }
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
     .details {
         &__img-box {
-            width: 430px;
+            width: 405px;
         }
+		&__ref-back {
+			&:hover {
+				&:before {
+					width: 0px;
+				}
+			}
+			&:active {
+				&:before {
+					width: 100%;
+					transition: 0.15s all;
+				}
+			}
+		}
+		&__desc {
+			font-size: 18px;
+		}
         &__name-machine {
             font-size: 34px;
             line-height: 44px;
@@ -147,12 +290,26 @@
                 font-size: 15px;    
             }
             &__item-value {
-                font-size: 15px;
+                font-size: 10px;
+				align-self: center;
             }
         }
+		&__rent {
+			&__title {
+				font-size: 17px;
+			}
+		}
+		&__rent-terms {
+			&__item-name {
+				font-size: 16px;
+			}
+			&__item-value {
+				font-size: 15px;
+			}
+		}
     }
     .tns-ovh {
-        width: 380px;
+        width: 360px;
     }
 }
 
@@ -160,11 +317,16 @@
     .details {
         margin-top: 40px;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
         &__img-box {
             width: 100%;
-            grid-template-rows: 391px 70px;
+            grid-template-rows: 350px 70px;
         }
+		&__img-main {
+			min-height: 0px;
+		}
+		&__ref-back {
+			font-size: 18px;
+		}
         &__info {
             margin-top: 14px;
         }
@@ -175,11 +337,22 @@
             background: #000;
             opacity: 0.5;
         }
+		&__name-machine {
+			font-size: 26px;
+		}
         &__slider {
             &__item {
                 height: 70px;
             }
         }
+		&__specifications {
+			&__item-value {
+				font-size: 15px;
+			}
+		}
+		&__offert {
+			font-size: 14px;
+		}
     }
     .tns-ovh {
         width: 85%;
@@ -188,7 +361,7 @@
 
 @media(max-width: 575px) {
     .details {
-        margin-top: 20px;
+        margin-top: 45px;
         grid-template-rows: 1fr;
         &__img-box {
             grid-template-rows: 190px 50px;
@@ -197,6 +370,9 @@
             min-height: 0px;
             align-items: flex-start;
         }
+		&__desc {
+			font-size: 16px;
+		}
         &__info {
             margin-top: 14px;
         }
@@ -208,18 +384,26 @@
         &__btn {
             width: 100%;
         }
+		&__specifications {
+			&__item-value {
+				font-size: 14px;
+			}
+		}
     }
     .tns-ovh {
         width: 85%;
     }
 }
 
-@media(max-width: 374px) {
+@media(max-width: 375px) {
     .details {
         padding: 20px;
         &__img-box {
             grid-template-rows: 190px 37px;
         }
+		&__desc {
+			font-size: 14px;
+		}
         &__name-machine {
             font-size: 28px;
             line-height: 33px;
@@ -246,6 +430,14 @@
                 font-size: 14px;
             }
         }
+		&__rent-terms {
+			&__item-name {
+				font-size: 15px;
+			}
+			&__item-value {
+				font-size: 14px;
+			}
+		}
     }
     .tns-ovh {
         width: 83%;

@@ -21,7 +21,8 @@ router.post('/add', auth, async (req, res) => {
 
         await res.status(200).redirect('/');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
     
 })
@@ -37,7 +38,8 @@ router.post('/edit', auth, async(req, res) => {
         await res.status(200).redirect('/');
 
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
 })
 
@@ -53,7 +55,8 @@ router.delete('/delete/:id', auth, async(req, res) => {
     
         await res.status(200).json(questions)
     } catch(e) {
-        console.log(e)
+        console.log(e);
+		res.status(500).json();
     }
 })
 

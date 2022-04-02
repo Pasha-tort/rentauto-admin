@@ -1,366 +1,529 @@
-const {Router} = require('express');
+const { Router } = require('express');
 const router = Router();
-const path = require('path');
 const fs = require('fs');
 const auth = require('../middleware/auth');
+const path = require('path');
 
+//Mongoose models
 const Phone = require('../models/Phone');
 const SpecificationSpecial = require('../models/SpecificationSpecial');
 const MachineSpecial = require('../models/MachineSpecial');
 const CatalogTitle = require('../models/CatalogTitle');
 
-const imgFormUrl = '/img/catalog/special/feedback.webp';
+//utils
+const { deletePhoto } = require('../utils/deletefPhoto');
+const { fileAvailability } = require('../utils/fileAvailability');
+
+//halpers
+const { readFilesScripts } = require('./halpers/readFilesScripts');
+
+const imgFormUrl = '/img/catalog/special/feedback.jpg';
 const imgBackgroundStyle = 'catalog__special';
 const isCatalog = true;
 const isCatalogSpecial = true;
 
 const data = {
-    imgFormUrl,
-    imgBackgroundStyle,
+	imgFormUrl,
+	imgBackgroundStyle,
 }
 
 const pathPublic = path.resolve(path.dirname(__dirname)) + '/public';
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
 
-    try {
-        const phones = await Phone.find().lean();
-        const machines = await MachineSpecial.find().lean();
-        const catalogTitle = await CatalogTitle.findOne({type: 'special'}).lean();
+	try {
+		const phones = await Phone.find().lean();
+		const machines = await MachineSpecial.find().lean();
+		const catalogTitle = await CatalogTitle.findOne({ type: 'special' }).lean();
+		const titleTag = 'Аренда спецтехники в Москве'
 
-		function readFiles(path) {
-			return new Promise((res, rej) => {
-				fs.readdir(path, (err, files) => {
-					if (err) {
-						rej()
-					} else {
-						res(files)
-					}
+		machines.forEach((item) => {
+			if ((item.photo.length === 0 && item.avatar !== 'img/catalog/emptyPhoto2.png') || !fileAvailability(item.avatar)) {
+				item.avatar = '/img/catalog/emptyPhoto2.png';
+				const avatar = item.avatar;
+				MachineSpecial.findByIdAndUpdate(item._id, { avatar });
+			}
+
+			if (item.rentTerms.length) {
+				item.rentTerms.sort((a, b) => {
+					return +a.rentTermsMonthlyValue - +b.rentTermsMonthlyValue;
 				});
-			})
-		}
+
+				item.minRentTermsValue = item.rentTerms[0].rentTermsMonthlyValue.replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+			}
+
+			if (!isNaN(+item.price)) {
+				item.price = item.price.replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+				item.notPrice = false;
+			} else {
+				item.notPrice = true;
+			}
+		});
 
 		let fileScript = null;
 
-		await readFiles(pathPublic)
-			.then(res => {
-				files = res.forEach((file) => {
-					if (/^catalog\.\w+.js$/g.test(file)) {
-						fileScript = file;
-					}
-				})
-			})
+		await readFilesScripts(pathPublic, 'catalog')
+			.then(file => {
+				fileScript = file
+			});
 
-        machines.forEach( async(item) => {
-            if (item.photo.length === 0 && item.avatar !== 'img/catalog/emptyPhoto2.png') {
-                item.avatar = '/img/catalog/emptyPhoto2.png';
-                const avatar = item.avatar;
-                await MachineSpecial.findByIdAndUpdate(item._id, {avatar});
-            }
-        });
+		const pathHrefCurrent = '/catalog/special/';
 
-        res.render('catalog', {
-            isCatalogSpecial,
+		res.render('catalog', {
+			titleTag,
+			isCatalogSpecial,
+			isCatalog,
 			fileScript,
-            isCatalog,
-            phones,
-            catalogTitle,
-            data,
-            machines,
-            errorPhoneType: req.flash('errorPhoneType'),
-            errorPhoneLength: req.flash('errorPhoneLength'),
-            errorSpecificationType: req.flash('errorSpecificationType'),
-        });
-    } catch(e) {
-        console.log(e)
-    }
+			phones,
+			catalogTitle,
+			data,
+			machines,
+			pathHrefCurrent,
+			errorPhoneType: req.flash('errorPhoneType'),
+			errorPhoneLength: req.flash('errorPhoneLength'),
+			errorSpecificationType: req.flash('errorSpecificationType'),
+			layout: 'catalog',
+		});
+	} catch (e) {
+		console.log(e);
+		res.status(404).render('404', {
+			title: 'Страница не найдена'
+		});
+	}
 });
 
-router.get('/specifications', auth, async(req, res) => {
-    
-    try {
-        const specifications = await SpecificationSpecial.find().lean();
+router.get('/specifications', auth, async (req, res) => {
 
-        res.status(200).json(specifications)
-    } catch(e) {
-        console.log(e)
-    }
+	try {
+		const specifications = await SpecificationSpecial.find().lean();
+
+		res.status(200).json(specifications)
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.get('/specifications/:id', auth, async(req, res) => {
+router.get('/specifications/:id', auth, async (req, res) => {
 
-    const id = req.params.id;
+	const id = req.params.id;
 
-    try {
+	try {
 
-        const specifications = await MachineSpecial.findById(id).lean().select('specifications');
+		const specifications = await MachineSpecial.findById(id).lean().select('specifications');
 
-        await res.json(specifications);
+		await res.json(specifications);
 
-    } catch(e) {
-        console.log(e);
-    }
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.get('/:id', async(req, res) => {
+router.get('/rent-terms/:id', auth, async (req, res) => {
 
-    const isDetails = true;
+	const id = req.params.id;
 
-    const id = req.params.id;
-    const type = 'special';
+	try {
+		const rentTerms = await MachineSpecial.findById(id).lean().select('rentTerms');
 
-    try {
-        const phones = await Phone.find().lean();
-        const machine = await MachineSpecial.findById(id).lean();
-
-		function readFiles(path) {
-			return new Promise((res, rej) => {
-				fs.readdir(path, (err, files) => {
-					if (err) {
-						rej()
-					} else {
-						res(files)
-					}
-				});
-			})
-		}
-
-		let fileScript = null;
-
-		await readFiles(pathPublic)
-			.then(res => {
-				files = res.forEach((file) => {
-					if (/^details\.\w+.js$/g.test(file)) {
-						fileScript = file;
-					}
-				})
-			})
-
-        let mainPhoto = '/img/catalog/emptyPhoto2.png';
-
-        if (!machine.photo.length) {
-            mainPhoto = '/img/catalog/emptyPhoto2.png';
-        } else {
-            mainPhoto = machine.photo[0].destination + '/' + machine.photo[0].filename;
-        }
-
-        res.render('details', {
-            isDetails,
-			fileScript,
-            phones,
-            machine,
-            mainPhoto,
-            type,
-        })
-    } catch(e) {
-        console.log(e)
-    }
-});
-
-router.get('/photo/:id', auth, async(req, res) => {
-    const id = req.params.id;
-    
-    try {
-        const photo = await MachineSpecial.findById(id).lean().select('photo')
-        res.json(photo)
-    } catch (e) {
-        console.log(e)
-    }
-});
-
-router.post('/add-specification', auth, async(req, res) => {
-
-    const {urlPrev} = req.body;
-    let specification = req.body.specification.trim();
-    const priority = req.body.priority;
-    specification = specification[0].toUpperCase() + specification.substring(1);
-
-    if (!Number(priority)) {
-        req.flash('errorSpecificationType', 'Значение приоритетности должно быть цифрой')
-        return res.redirect(urlPrev);
-    }
-
-    try {
-        const specificationDB = new SpecificationSpecial({specification, priority});
-        await specificationDB.save();
-
-        await res.status(200).redirect('/catalog/special/');
-    } catch(e) {
-        console.log(e)
-    }
+		await res.json(rentTerms);
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 })
 
-router.post('/edit-specifications', auth, async(req, res) => {
+router.get('/:id', async (req, res) => {
 
-    const {id, specifications, prioritys, urlPrev} = req.body;
-    let error = false;
+	const isDetails = true;
+	let notPrice = false;
 
-    prioritys.forEach(priority => {
-        if (!Number(priority)) {
-            req.flash('errorSpecificationType', 'Значение приоритетности должно быть цифрой')
-            error = true;
-        }
-    });
+	const id = req.params.id;
+	const type = 'special';
 
-    if (error) {
-        return res.redirect(urlPrev);
-    }
+	try {
+		const phones = await Phone.find().lean();
+		const machine = await MachineSpecial.findById(id).lean();
 
-    try {
+		let mainPhoto = '/img/catalog/emptyPhoto2.png';
+		const titleTag = `Аренда, покупка ${machine.nameMachine}`
 
-        id.forEach(async(id) => {
-            const newSpecification = {specification: specifications[i], priority: prioritys[i]};
-            await SpecificationSpecial.findByIdAndUpdate(id, newSpecification);
-        })
-    
-        res.redirect('/catalog/special/')
+		if (!machine.photo.length) {
+			mainPhoto = '/img/catalog/emptyPhoto2.png';
+		} else {
+			mainPhoto = machine.photo[0].destination + '/' + machine.photo[0].filename;
+		}
 
-    } catch(e) {
-        console.log(e)
-    }
+		if (!isNaN(machine.price)) {
+			machine.price = machine.price.replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+		} else {
+			notPrice = true;
+		}
+
+		if (machine.rentTerms.length) {
+			machine.rentTerms.forEach(item => {
+				item.rentTermsFullValue = item.rentTermsFullValue.replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+				item.rentTermsMonthlyValue = item.rentTermsMonthlyValue.replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+			});
+		}
+
+		let fileScript = null;
+
+		await readFilesScripts(pathPublic, 'details')
+			.then(file => {
+				fileScript = file
+			});
+
+		const pathHrefPrev = 'catalog/special/'
+
+		res.render('details', {
+			titleTag,
+			isDetails,
+			fileScript,
+			phones,
+			machine,
+			notPrice,
+			mainPhoto,
+			type,
+			pathHrefPrev,
+			layout: 'details',
+		})
+	} catch (e) {
+		console.log(e);
+		res.status(404).render('404', {
+			title: 'Страница не найдена'
+		});
+	}
 });
 
-router.post('/edit-specifications/:id', auth, async(req, res) => {
-    const {id} = req.params;
-    
-    const {specificationsNewValue, specificationsName, availability, price, nameMachine} = req.body;
+router.get('/photo/:id', auth, async (req, res) => {
+	const id = req.params.id;
 
-    const specifications = [];
-
-    specificationsName.forEach((item, i) => {
-        if (specificationsNewValue[i] !== '') {
-            specifications.push({
-                specificationName: item,
-                specificationValue: specificationsNewValue[i],
-            });
-        }
-    });
-
-    await MachineSpecial.findByIdAndUpdate(id, {specifications, availability, price, nameMachine});
-
-    await res.redirect('/catalog/special'+'/'+id);
+	try {
+		const photo = await MachineSpecial.findById(id).lean().select('photo')
+		res.json(photo)
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.delete('/delete-machine/:id', async(req, res) => {
-    const {id} = req.params;
+router.post('/add-specification', auth, async (req, res) => {
 
-    try {
-        await MachineSpecial.deleteOne({
-            _id: id,
-        });
+	const { urlPrev } = req.body;
+	let specification = req.body.specification.trim();
+	const priority = req.body.priority;
+	specification = specification[0].toUpperCase() + specification.substring(1);
 
-        await res.status(200).json();
-    } catch (e) {
-        console.log(e)
-    }
+	if (!Number(priority)) {
+		req.flash('errorSpecificationType', 'Значение приоритетности должно быть цифрой')
+		return res.redirect(urlPrev);
+	}
+
+	try {
+		const specificationDB = new SpecificationSpecial({ specification, priority });
+		await specificationDB.save();
+
+		await res.status(200).redirect('/catalog/special/');
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
+})
+
+router.post('/edit-specifications', auth, async (req, res) => {
+
+	const { id, specifications, prioritys, urlPrev } = req.body;
+	let error = false;
+
+	prioritys.forEach(priority => {
+		if (!Number(priority)) {
+			req.flash('errorSpecificationType', 'Значение приоритетности должно быть цифрой')
+			error = true;
+		}
+	});
+
+	if (error) {
+		return res.redirect(urlPrev);
+	}
+
+	try {
+
+		id.forEach(async (id) => {
+			const newSpecification = { specification: specifications[i], priority: prioritys[i] };
+			await SpecificationSpecial.findByIdAndUpdate(id, newSpecification);
+		})
+
+		res.redirect('/catalog/special/')
+
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.delete('/specifications/remove/:id', auth, async(req, res) => {
-    const id = req.params.id;
+router.post('/edit-specifications/:id', auth, async (req, res) => {
+	const { id } = req.params;
 
-    try {
-        await SpecificationSpecial.deleteOne({
-            _id: id,
-        });
-    
-        await res.status(200).json();
-    } catch(e) {
-        console.log(e)
-    }
+	const { specificationsNewValue, specificationsName, availability, nameMachine } = req.body;
+	let { price, rentTermsName, rentTermsFullValue, rentTermsMonthlyValue } = req.body;
+
+	try {
+		if (typeof rentTermsFullValue === 'string') {
+			rentTermsFullValue = [rentTermsFullValue];
+		}
+
+		if (typeof rentTermsName === 'string') {
+			rentTermsName = [rentTermsName];
+		}
+
+		if (typeof rentTermsMonthlyValue === 'string') {
+			rentTermsMonthlyValue = [rentTermsMonthlyValue];
+		}
+
+		const priceChanges = (price) => {
+			return price.match(/\d+/g).join('');
+		}
+
+		if (price !== 'Цена не указана' && price !== '') {
+			price = priceChanges(price);
+		} else {
+			price = 'Цена не указана'
+		}
+
+		const specifications = [];
+		const rentTerms = [];
+
+		specificationsName.forEach((item, i) => {
+			if (specificationsNewValue[i] !== '') {
+				specifications.push({
+					specificationName: item,
+					specificationValue: specificationsNewValue[i],
+				});
+			}
+		});
+
+		rentTermsName.forEach((item, i) => {
+			if (rentTermsFullValue[i] !== '') {
+				rentTerms.push({
+					rentTermsName: item,
+					rentTermsFullValue: priceChanges(rentTermsFullValue[i]),
+					rentTermsMonthlyValue: priceChanges(rentTermsMonthlyValue[i]),
+				})
+			}
+		});
+
+		await MachineSpecial.findByIdAndUpdate(id, { specifications, availability, price, nameMachine, rentTerms });
+
+		await res.redirect('/catalog/special' + '/' + id);
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.delete('/delete-photo/:id/:filename', auth, async(req, res) => {
-    const fileName = req.params.filename;
-    const id = req.params.id;
+router.delete('/delete-machine/:id', async (req, res) => {
+	const { id } = req.params;
 
-    try {
-        await fs.unlink('assets/img/catalog/special/machines'+'/'+fileName, (err) => {
-            if (err) {
-                throw err
-            } else {
-                console.log('deleted' + fileName);
-            }
-        });
+	try {
+		const machine = await MachineSpecial.findById(id).lean();
 
-        const photoOld = await MachineSpecial.findById(id).lean().select('photo');
-        
-        const photo = photoOld.photo.filter(item => {
-            return item.filename !== fileName;
-        });
+		await machine.photo.forEach(async (photo) => {
+			const { filename } = photo;
 
-        await MachineSpecial.findByIdAndUpdate(id, {photo});
+			deletePhoto(filename)
+		});
 
-        await res.json();
-    } catch(e) {
-        console.log(e)
-    }
+		await MachineSpecial.deleteOne({
+			_id: id,
+		});
+
+		await res.status(200).json();
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.post('/avatar-photo/:id/:filename', auth, async(req, res) => {
-    const fileName = req.params.filename;
-    const id = req.params.id;
+router.delete('/specifications/remove/:id', auth, async (req, res) => {
+	const id = req.params.id;
 
-    const avatar = '/img/catalog/special/machines'+'/'+fileName;
+	try {
+		const specificationId = await SpecificationSpecial.findById(id);
 
-    try {
-        await MachineSpecial.findByIdAndUpdate(id, {avatar});
-        await res.json();
-    } catch(e) {
-        console.log(e);
-    }
+		const machines = await MachineSpecial.find().lean();
+
+		for (let machine of machines) {
+
+			const newSpecifications = machine.specifications.filter(specification => {
+				return specification.specificationName !== specificationId.specification;
+			});
+
+			await MachineSpecial.findByIdAndUpdate(machine._id, {
+				specifications: newSpecifications
+			});
+		}
+
+		await SpecificationSpecial.deleteOne({
+			_id: id,
+		});
+
+		await res.status(200).json();
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.post('/add-machine', auth, async(req, res) => {
-    const {specificationsValue, specificationsName, nameMachine, price, availability} = req.body;
-    
-    const specifications = [];
-    const photos = [];
-    const avatar = '/img/catalog/emptyPhoto2.png';
+router.delete('/delete-photo/:id/:filename', auth, async (req, res) => {
+	const fileName = req.params.filename;
+	const id = req.params.id;
 
-    if (specificationsValue.length) {
-        for (let i = 0; i < specificationsValue.length; i++) {
+	try {
+		await fs.unlink('assets/img/catalog/special/machines' + '/' + fileName, (err) => {
+			if (err) {
+				throw err
+			} else {
+				console.log('deleted' + fileName);
+			}
+		});
 
-            if (specificationsValue[i] === '') {
-                continue;
-            } else {
-                specifications.push({
-                    specificationName: specificationsName[i],
-                    specificationValue: specificationsValue[i],
-                })
-            }
-        }
-    }
+		const photoOld = await MachineSpecial.findById(id).lean().select('photo');
 
-    try {
-        const machine = new MachineSpecial({specifications, nameMachine, price, availability, photos, avatar});
+		const photo = photoOld.photo.filter(item => {
+			return item.filename !== fileName;
+		});
 
-        await machine.save();
-        await res.status(200).redirect('/catalog/special/');
-    } catch(e) {
-        console.log(e)
-    }
+		await MachineSpecial.findByIdAndUpdate(id, { photo });
+
+		await res.json();
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
-router.post('/add-photo', auth, async(req, res) => {
-    const id = req.body.id;
-    const newPhoto = req.files;
+router.post('/avatar-photo/:id/:filename', auth, async (req, res) => {
+	const fileName = req.params.filename;
+	const id = req.params.id;
 
-    newPhoto.forEach(item => {
-        item.destination = item.destination.slice(6);
-    })
+	const avatar = '/img/catalog/special/machines' + '/' + fileName;
 
-    try {
-        const photoDB = await MachineSpecial.findById(id).lean().select('photo');
+	try {
+		await MachineSpecial.findByIdAndUpdate(id, { avatar });
+		await res.json();
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
+});
 
-        const photo = [...photoDB.photo, ...newPhoto];
-        
-        await MachineSpecial.findByIdAndUpdate(id, {photo});
+router.post('/add-machine', auth, async (req, res) => {
+	const { specificationsValue, specificationsName, nameMachine, availability } = req.body;
+	let { rentTermsName, rentTermsFullValue, rentTermsMonthlyValue, price } = req.body;
 
-        await res.status(200).redirect('/catalog/special'+'/'+id)
-    } catch(e) {
-        console.log(e);
-    }
+	if (typeof rentTermsFullValue === 'string') {
+		rentTermsFullValue = [rentTermsFullValue];
+	}
 
+	if (typeof rentTermsName === 'string') {
+		rentTermsName = [rentTermsName];
+	}
+
+	if (typeof rentTermsMonthlyValue === 'string') {
+		rentTermsMonthlyValue = [rentTermsMonthlyValue];
+	}
+
+	const priceChanges = (price) => {
+		return price.match(/\d+/g).join('');
+	}
+
+	if (price !== '') {
+		price = priceChanges(price);
+	} else {
+		price = 'Цена не указана'
+	}
+
+	const specifications = [];
+	const photos = [];
+	const avatar = '/img/catalog/emptyPhoto2.png';
+	const rentTerms = [];
+
+	if (specificationsValue.length) {
+		for (let i = 0; i < specificationsValue.length; i++) {
+
+			if (specificationsValue[i] === '') {
+				continue;
+			} else {
+				specifications.push({
+					specificationName: specificationsName[i],
+					specificationValue: specificationsValue[i],
+				})
+			}
+		}
+	}
+
+	if (rentTermsFullValue.length) {
+		for (let i = 0; i < rentTermsFullValue.length; i++) {
+
+			if (rentTermsFullValue[i] === '') {
+				continue;
+			} else {
+				rentTerms.push({
+					rentTermsName: rentTermsName[i],
+					rentTermsFullValue: priceChanges(rentTermsFullValue[i]),
+					rentTermsMonthlyValue: priceChanges(specificationsValue[i]),
+				})
+			}
+		}
+	}
+
+	try {
+		const machine = new MachineSpecial({ specifications, nameMachine, price, availability, photos, avatar, rentTerms });
+
+		await machine.save();
+		await res.status(200).redirect('/catalog/special/');
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
+});
+
+router.post('/add-photo', auth, async (req, res) => {
+	const id = req.body.id;
+	const newPhoto = req.files;
+
+	newPhoto.forEach(item => {
+		item.destination = item.destination.slice(6);
+	})
+
+	try {
+		const photoDB = await MachineSpecial.findById(id).lean().select('photo');
+
+		const photo = [...photoDB.photo, ...newPhoto];
+
+		await MachineSpecial.findByIdAndUpdate(id, { photo });
+
+		await res.status(200).redirect('/catalog/special' + '/' + id)
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
+});
+
+router.post('/edit-desc', auth, async (req, res) => {
+	const id = req.body.id;
+	const desc = req.body.desc.trim();
+
+	try {
+		await MachineSpecial.findByIdAndUpdate(id, { desc });
+
+		res.status(200).redirect('/catalog/personal' + '/' + id);
+	} catch (e) {
+		console.log(e);
+		res.status(500).json();
+	}
 });
 
 module.exports = router

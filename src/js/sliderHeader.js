@@ -1,13 +1,8 @@
 "use strict";
 
 export default function sliderHeader() {
-    const nav = document.querySelector('.nav__wrapper') || document.querySelector('.nav__wrapper_mobile');
-    
-    // const heightNav = +window.getComputedStyle(nav).height.match(/\d+/g)[0];
     
     const sliderWrapper = document.querySelector('.slider-header__wrapper');
-    // sliderWrapper.style.height = `${document.documentElement.clientHeight - heightNav}px`;
-	// console.log(document.documentElement.clientHeight)
 
     let slides = document.querySelectorAll(".slider-header__slide__background");
     
@@ -32,19 +27,19 @@ export default function sliderHeader() {
 
     const slideHtmlPersonal = `
                                 <div class="slider-header__slide__box">
-                                    <img class="slider-header__slide__img ${classNameImg}" alt="header_auto" src="/img/headerBackground/machinePersonal.webp"/>
+                                    <img class="slider-header__slide__img ${classNameImg}" alt="header_auto" src="/img/headerBackground/machinePersonal.png"/>
                                 </div>
                                 `;
 
     const slideHtmlCommercial = `
                                 <div class="slider-header__slide__box">
-                                    <img class="slider-header__slide__img ${classNameImg}" alt="header_auto" src="/img/headerBackground/machineCommercial.webp"/>
+                                    <img class="slider-header__slide__img ${classNameImg}" alt="header_auto" src="/img/headerBackground/machineCommercial.png"/>
                                 </div>
                                 `;
 
     const slideHtmlSpecial = `
                                 <div class="slider-header__slide__box">
-                                    <img class="slider-header__slide__img ${classNameImg}" alt="header_auto" src="/img/headerBackground/machineSpecial.webp"/>
+                                    <img class="slider-header__slide__img ${classNameImg}" alt="header_auto" src="/img/headerBackground/machineSpecial.png"/>
                                 </div>
                                 `;
     
@@ -56,13 +51,13 @@ export default function sliderHeader() {
         slide.classList.add('slider-header__slide__background');
 
         if (step === 0) {
-            slide.style.background = "url('/img/headerBackground/backgroundPersonal.webp') no-repeat center center/cover";
+            slide.style.background = "url('/img/headerBackground/backgroundPersonal.jpg') no-repeat center center/cover";
             slide.innerHTML = slideHtmlPersonal;
         } else if (step === 1) {
-            slide.style.background = "url('/img/headerBackground/backgroundCommercial.webp') no-repeat center center/cover";
+            slide.style.background = "url('/img/headerBackground/backgroundCommercial.jpg') no-repeat center center/cover";
             slide.innerHTML = slideHtmlCommercial;
         } else if (step === 2) {
-            slide.style.background = "url('/img/headerBackground/backgroundSpecial.webp') no-repeat center center/cover";
+            slide.style.background = "url('/img/headerBackground/backgroundSpecial.jpg') no-repeat center center/cover";
             slide.innerHTML = slideHtmlSpecial;
         }
 

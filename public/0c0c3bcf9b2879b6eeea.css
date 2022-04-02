@@ -1,0 +1,311 @@
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/ContextMenu/context-menu.scss ***!
+  \*********************************************************************************************************************************************/
+.context-menu__wrapper {
+  display: none;
+  position: absolute;
+  width: 250px;
+  z-index: 3;
+}
+.context-menu__wrapper_active {
+  display: block;
+}
+.context-menu__list {
+  display: block;
+}
+.context-menu__item {
+  display: block;
+  list-style-type: none;
+}
+/*!*************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/WindowMessage/window-message.scss ***!
+  \*************************************************************************************************************************************************/
+.message__text {
+  text-align: center;
+  color: #fff;
+}
+.message__item {
+  display: flex;
+  position: relative;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  list-style-type: none;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.message__item:first-child {
+  margin-top: 0px;
+}
+.message__item_success {
+  background: rgba(0, 128, 0, 0.8);
+}
+.message__item_error {
+  background: rgba(255, 0, 0, 0.8);
+}
+.message__list {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 60;
+}
+.message__close {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  right: 0px;
+  top: 0px;
+}
+.message__close:hover {
+  cursor: pointer;
+}
+/*!********************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/Spinners/SpinnerPanel/spinner-panel.scss ***!
+  \********************************************************************************************************************************************************/
+.spinner-panel__wrapper {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.spinner-panel__wrapper img {
+  width: 100%;
+  height: 100%;
+}
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/Spinners/SpinnerIframe/spinner-iframe.scss ***!
+  \**********************************************************************************************************************************************************/
+.spinner-iframe__background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.spinner-iframe__wrapper {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+}
+.spinner-iframe__wrapper img {
+  width: 100%;
+  height: 100%;
+}
+/*!********************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/Spinners/SpinnerModal/spinner-modal.scss ***!
+  \********************************************************************************************************************************************************/
+.spinner-modal__wrapper {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+}
+.spinner-modal__wrapper img {
+  width: 100%;
+  height: 100%;
+}
+/*!********************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/Modal/modal.scss ***!
+  \********************************************************************************************************************************/
+.modal__background {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  height: 100%;
+}
+.modal__wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: #E2D9E2;
+  width: 500px;
+  min-height: 200px;
+  z-index: 40;
+  transition: 0.2s all;
+}
+
+.modal__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+.modal__title {
+  font-size: 28px;
+  font-weight: 600;
+}
+.modal__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.modal__list__item {
+  transition: 0.1s all;
+}
+.modal__list__item__wrapper {
+  list-style-type: none;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+.modal__list__item:hover {
+  cursor: pointer;
+  color: red;
+  background: rgba(255, 0, 0, 0.1);
+  transition: 0.1s all;
+}
+.modal__list__item_active {
+  color: green;
+  background: rgba(0, 128, 0, 0.1);
+  transition: 0.1s all;
+}
+.modal__list__item_current {
+  color: #000;
+  background: rgba(0, 0, 0, 0.1);
+}
+.modal__list__icon-remove:hover {
+  cursor: pointer;
+}
+.modal__list__icon-remove__wrapper {
+  display: none;
+}
+.modal__list__icon-remove__wrapper_active {
+  display: flex;
+  align-items: center;
+}
+.modal__text {
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 20px;
+  line-height: 28px;
+}
+.modal__btn-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.modal__btn {
+  margin-left: 20px;
+  width: 120px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid grey;
+  transition: 0.15s all;
+}
+.modal__btn:first-child {
+  margin-left: 0px;
+}
+.modal__btn:hover {
+  background: grey;
+  transition: 0.15s all;
+  cursor: pointer;
+}
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/ModalTransparent/modal-transparent.scss ***!
+  \*******************************************************************************************************************************************************/
+.modal__transparent {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 50;
+}
+/*!*****************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/PanelEdit/panel-edit.scss ***!
+  \*****************************************************************************************************************************************/
+.panel-edit {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  background: #E2D9E2;
+  z-index: 20;
+  transition: 0.15s all;
+}
+.panel-edit_active {
+  left: 0;
+  transition: 0.15s all;
+}
+/*!**********************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/components/Editor/editor.scss ***!
+  \**********************************************************************************************************************************/
+* {
+  font-family: "SFPro-Display", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-panel {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  position: relative;
+  grid-template-columns: 200px 1fr;
+}
+.admin-panel__button {
+  width: 150px;
+  height: 50px;
+  background: #F28E85;
+  border: 2px solid #F5BCA9;
+  transition: 0.15s all;
+  margin-top: 15px;
+}
+.admin-panel__button:hover {
+  background: #F5BCA9;
+  transition: 0.15s all;
+  cursor: pointer;
+}
+.admin-panel__button:first-child {
+  margin-top: 0px;
+}
+
+.wrapper-panel {
+  height: 100vh;
+  width: 200px;
+  background: #906CD7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0px 20px;
+  z-index: 30;
+}
+
+.wrapper-iframe {
+  position: relative;
+  width: 100%;
+}
+
+.iframe-main {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.iframe-main body {
+  position: relative;
+}
+
+/*# sourceMappingURL=0c0c3bcf9b2879b6eeea.css.map*/

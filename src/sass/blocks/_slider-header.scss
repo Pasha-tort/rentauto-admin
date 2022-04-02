@@ -6,9 +6,10 @@
         z-index: 4;
     }
 	&__company-name {
-		font-size: 146px;
+		font-size: 84px;
 		font-weight: 600;
 		text-align: center;
+		line-height: 130%;
 		&__title {
 			font-size: 24px;
 			line-height: 140%;
@@ -19,7 +20,7 @@
     &__wrapper {
         display: flex;
         justify-content: space-between;
-        height: calc(100vh - 85px);
+		height: calc(100vh - 85px);
         visibility: hidden;
         &_active {
             visibility: visible;
@@ -59,15 +60,10 @@
     left: 50%;
     width: 1200px;
     margin: 0 auto;
-    // bottom: 50%;
 	top: 50px;
     transform: translateX(-50%);
     text-transform: uppercase;
     color: #fff;
-    // font-size: 146px;
-    // font-weight: 600;
-    // text-align: center;
-    // line-height: 174px;
 }
 
 .main__title {
@@ -98,8 +94,7 @@
     }
 	.slider-header {
 		&__company-name {
-			font-size: 106px;
-			line-height: 124px;
+			font-size: 66px;
 		}
 		&__slide {
 			&__img {
@@ -121,6 +116,9 @@
     }
 
     .slider-header {
+		&__company-name {
+			font-size: 56px;
+		}
         &__slide {
             &__img {
                 max-width: 95vw;
@@ -136,8 +134,8 @@
 	}
 	.slider-header {
 		&__company-name {
-			font-size: 96px;
-			line-height: 114px;
+			font-size: 51px;
+			line-height: 160%;
 			&__title {
 				font-size: 22px;
 			}
@@ -156,8 +154,8 @@
     } 
 	.slider-header {
 		&__company-name {
-			font-size: 60px;
-			line-height: 70px;
+			font-size: 66px;
+			line-height: 110%;
 			&__title {
 				font-size: 18px;
 			}
@@ -175,8 +173,8 @@
 			height: calc(100vh - 75px);
 		}
 		&__company-name {
-			font-size: 64px;
-			line-height: 90%;
+			font-size: 48px;
+			line-height: 100%;
 			&__title {
 				font-size: 16px;
 				margin-top: 10px;
@@ -187,10 +185,9 @@
 
     .main__title {
         bottom: 40px;
-        font-size: 14px;
+        font-size: 15px;
         width: 90%;
     }
-
 }
 
 @media(max-width: 375px) {
@@ -199,6 +196,10 @@
         font-size: 12px;
     }
     .slider-header {
+		&__company-name {
+			font-size: 38px;
+			line-height: 100%;
+		}
         &__slide {
             &__img {
                 bottom: 45%;

@@ -32,6 +32,11 @@
                 margin-left: 5px;
             }
         }
+		&__item {
+			fill: #fff;
+			width: 24px;
+			height: 24px;
+		}
         
     }
     &__address {
@@ -119,6 +124,7 @@
         &__logo {
             display: block;
             margin: 0 auto;
+			height: 45px;
         }
         &__contacts {
             font-size: 14px;

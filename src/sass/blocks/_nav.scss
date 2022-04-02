@@ -1,6 +1,11 @@
+.nav__menu_mobile {
+	display: none;
+}
+.nav__wrapper_mobile {
+	display: none;
+}
 .nav {
     &__wrapper {
-        display: none;
         grid-template-columns: 1fr 1fr;
         align-items: center;
         min-height: 85px;
@@ -61,7 +66,6 @@
             position: relative;
             margin-top: 10px;
             a {
-				display: block;
                 color: #000;
                 transition: 0.15s all;
                 text-decoration: none;
@@ -103,7 +107,7 @@
                 left: 1px;
                 top: 50%;
                 content: '';
-                width: 50%;
+                width: 51%;
                 background: #000;
                 height: 1px;
                 transform: rotate(40deg);
@@ -114,7 +118,7 @@
                 right: 0px;
                 top: 50%;
                 content: '';
-                width: 50%;
+                width: 51%;
                 background: #000;
                 height: 1px;
                 transform: rotate(-40deg);
@@ -172,6 +176,7 @@
         align-items: center;
     }
     &__phone {
+        margin-right: 45px;
         text-decoration: none;
         color: #000;
         font-weight: 400;
@@ -196,10 +201,6 @@
             }
         }
     }
-}
-
-.phone-admin__box {
-	margin-right: 45px;
 }
 
 @media(max-width: 1024px) {
@@ -237,6 +238,7 @@
         }
         &__phone {
             font-size: 14px;
+            margin-right: 20px;
             &:hover {
                 &:before {
                     width: 0px;
@@ -273,10 +275,6 @@
             }
         }
     }
-
-	.phone-admin__box {
-		margin-right: 20px;
-	}
 }
 
 @media(max-width: 767px) {
@@ -288,7 +286,7 @@
             font-size: 12px;
         }
         &__phone {
-            font-size: 11px;
+            font-size: 12px;
             margin-right: 20px;
         }
         &__btn {
@@ -308,6 +306,7 @@
             padding-bottom: 16px;
         }
         &__menu_mobile {
+			display: block;
             background: #fff;
             width: 100vw;
             z-index: 10;
@@ -321,7 +320,13 @@
                 transition: 0.2s all;
             }
         }
+		&__logo {
+			&_mobile {
+				height: 45px;
+			}
+		}
         &__wrapper {
+			display: none;
             &_mobile {
                 position: relative;
                 height: 75px;

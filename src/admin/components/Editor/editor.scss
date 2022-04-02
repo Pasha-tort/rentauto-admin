@@ -1,3 +1,6 @@
+@import '../../sass/btn.scss';
+@import '../../sass/variables.scss';
+
 * {
     font-family: 'SFPro-Display', sans-serif;
     box-sizing: border-box;
@@ -12,19 +15,10 @@
 	position: relative;
 	grid-template-columns: 200px 1fr;
 	&__button {
-		width: 150px;
-		height: 50px;
-		background: #F28E85;
-		border: 2px solid #F5BCA9;
-		transition: 0.15s all;
+		@include btn(150px, 50px, $panel-btn-color, 2px solid $panel-btn-border-color-and-hover, $panel-btn-border-color-and-hover);
 		margin-top: 15px;
 		&:first-child {
 			margin-top: 0px;
-		}
-		&:hover {
-			background: #F5BCA9;
-			transition: 0.15s all;
-			cursor: pointer;
 		}
 	}
 }
@@ -32,11 +26,12 @@
 .wrapper-panel {
 	height: 100vh;
 	width: 200px;
-	background: #906CD7;
+	background: $panel-background;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 40px 0px 20px;
+	z-index: 30;
 }
 
 .wrapper-iframe {
@@ -54,21 +49,6 @@
 
 .iframe-main body {
 	position: relative;
-}
-
-.modal {
-	&__transparent {
-		display: none;
-		position: absolute;
-		width: 100%;
-		height: 100vh;
-		background-color: rgba(0,0,0,.0);
-		z-index: 50;
-		&_active {
-			display: block;
-		}
-	}
-	
 }
 
 

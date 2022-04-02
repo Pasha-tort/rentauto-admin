@@ -6,7 +6,6 @@ import submitForm from './submitForm';
 import catalog from './catalog';
 import { scrollOpenCookies } from './cookie';
 
-
 window.addEventListener("DOMContentLoaded", async () => {
 
     window.addEventListener('scroll', scrollOpenCookies);
@@ -19,4 +18,3 @@ window.addEventListener("DOMContentLoaded", async () => {
 	submitForm('.form-client', '/mailer/feedback');
 
 });
-
